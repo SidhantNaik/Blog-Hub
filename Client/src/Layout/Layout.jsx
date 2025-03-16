@@ -1,5 +1,7 @@
 import React from 'react'
 import Topbar from './Topbar'
+import { Outlet } from 'react-router-dom'
+import SideBar from './SideBar'
 
  const Layout = () => {
     return (
@@ -7,13 +9,13 @@ import Topbar from './Topbar'
         <>
             <Topbar></Topbar>
 
-            {/* // Side Bar. */}
+            <SideBar/>
 
             <main>
 
-                {/* <Outlet /> */}
+                <Outlet />
 
-                {/* footer */}
+                
             </main>
         </>
     )

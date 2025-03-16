@@ -1,12 +1,11 @@
 import React from 'react';
-import BlogHubLogo from './BlogHubLogo.png';
 
 
 export default function WebSiteLogo() {
+
   return (
-
-    <img src={BlogHubLogo} alt="Blog Hub Logo" className="w-18 h-18 object-cover  rounded-full transition-transform transform hover:scale-105 mb-2 " />
-
-
+    <>
+      <span className=" px-3 pt-2 rounded-sm ml-2 mt-3 mb-3 bg-purple-50 hover:scale-110  hover:shadow-purple-600 shadow-sm "> <i className="fa-brands fa-github-alt "> Blog Hub </i></span>
+    </>
   )
 }

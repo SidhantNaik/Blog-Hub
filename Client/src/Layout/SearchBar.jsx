@@ -2,10 +2,16 @@ import React from 'react';
 
 export default function SearchBar() {
   return (
+    <div className=" flex items-center">
+
       <input
         type="text"
         placeholder="Search here . . . ."
-        className="bg-white border border-gray-300 rounded-full py-3 px-4 w-100 mt-2 focus:outline-none focus:border-blue-500 transition-shadow focus:shadow-lg hover:shadow-xl  "
+        className="border-3 border-purple-300 rounded-2xl p-0 w-20 m-2 hover:border-purple-400 hover:shadow-2xl focus:outline-none focus:shadow-2xl lg:p-2 w-100"
       />
+ 
+      <i className="fas fa-search text-black ml-2 text-purple-700 scale-120 cursor-pointer" ></i>
+
+    </div>
   );
 }
