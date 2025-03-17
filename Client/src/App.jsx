@@ -1,11 +1,18 @@
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import './App.css'
 import  Layout  from './Layout/Layout'
+import { RouteIndex } from './Helpers/RouteNames'
+import Index from './Pages'
 function App() {
 
   return (
-    <>
-        <Layout/>
-    </>
+    <BrowserRouter>
+        <Routes>
+          <Route path={RouteIndex} element={<Layout/>}>
+            <Route index element={<Index/>}></Route>
+          </Route>
+        </Routes>
+     </BrowserRouter>
   )
 }
 
