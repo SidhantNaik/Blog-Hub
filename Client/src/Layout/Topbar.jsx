@@ -5,14 +5,13 @@ import SignInButton from './SignInButton';
 
 const Topbar = () => {
   return (
-    <div className=" flex justify-between items-center border-1 border-gray-400 sticky">
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <div className="flex justify-between items-center border-1 border-gray-400 sticky top-0 bg-white p-4 md:p-6 w-full">
 
-      <WebSiteLogo />
+      <WebSiteLogo className="w-1/4 md:w-auto p-1" />
 
-      <SearchBar />
+      <SearchBar className="w-1/3 md:w-auto p-1" />
 
-      <SignInButton />
+      <SignInButton className="w-1/5 md:w-auto p-1" />
 
     </div>
   );

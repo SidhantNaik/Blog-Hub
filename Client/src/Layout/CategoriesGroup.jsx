@@ -8,6 +8,7 @@ function CategoriesGroup() {
       <Categories title={"Categories 2"}/>
       <Categories title={"Categories 1"}/>
       <Categories title={"Categories 3"}/>
+      
     </>
 
   )

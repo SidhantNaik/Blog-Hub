@@ -1,6 +1,2 @@
-@theme
-{
-    --font-cursive: "Pacifico",serif;
-
-    --color-purple-normal: 
-}
+@import "tailwindcss/preflight";
+@tailwind utilities;
