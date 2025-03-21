@@ -5,7 +5,7 @@ import SignInButton from './SignInButton';
 
 const Topbar = () => {
   return (
-    <div className="flex justify-between items-center border-1 border-gray-400 sticky top-0 bg-white p-4 md:p-6 w-full">
+    <div className="flex justify-between items-center border-2 border-gray-400 sticky h-20 top-0 bg-white p-4 md:p-6 w-full">
 
       <WebSiteLogo className="w-1/4 md:w-auto p-1" />
 

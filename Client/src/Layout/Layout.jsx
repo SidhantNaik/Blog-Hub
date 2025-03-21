@@ -9,7 +9,7 @@ const Layout = () => {
         <>
             <Topbar></Topbar>
 
-            <main className="flex h-full w-full space-x-5  ">
+            <main className="flex space-x-5  ">
                 <SideBar  />
                 <Outlet />
                 <Footer className="fixed bottom-0 w-full" />
