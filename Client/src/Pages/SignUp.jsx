@@ -2,51 +2,61 @@ import React from 'react'
 import LableText from '../Components/LableText'
 import InputText from '../Components/InputText'
 import Button from '../Components/Button'
-
+import { Link } from 'react-router-dom'
+import { RouteSignIn } from '../Helpers/RouteNames'
+import { FcGoogle } from 'react-icons/fc'
 
 const SignUp = () => {
   return (
-    <div className="flex justify-center items-center h-screen  ">
-      
-      <form action="" className="border-1 p-10 rounded-md shadow-2xl">
-        
-      <h2   className="text-center mb-3 font-bold scale-150">Create Account</h2>
+    <div className="flex justify-center items-center min-h-screen p-4">
+      <form className="w-full max-w-md bg-white rounded-lg shadow-lg p-6 sm:p-8">
+        <h2 className="text-center mb-6 text-2xl font-bold text-purple-700">Create Account</h2>
 
-      <div className="border-2 p-2 m-3">G Continue With Google</div>
+        <button 
+          type="button" 
+          className="flex items-center justify-center w-full gap-2 border-2 border-gray-300 rounded-lg p-3 mb-4 hover:bg-gray-50 transition-colors"
+        >
+          <FcGoogle className="text-xl" />
+          <span>Continue With Google</span>
+        </button>
 
-      <div className="flex justify-between">
-        <hr />
-        <p>OR</p>
-        <hr />
-      </div>
+        <div className="flex items-center my-4">
+          <hr className="flex-grow border-gray-300" />
+          <span className="px-3 text-gray-500 text-sm">OR</span>
+          <hr className="flex-grow border-gray-300" />
+        </div>
 
-      <div>
-        <LableText labels={"Name"}/>
-        <br />
-        <InputText placeholder={"Enter your name"} type={"text"}/>
-        <br />
+        <div className="space-y-4">
+          <div>
+            <LableText labels="Name" />
+            <InputText placeholder="Enter your name" type="text" />
+          </div>
 
-        <LableText labels={"Email"}/>
-        <br />
-        <InputText placeholder={"Enter your email"} type={"email"}/>
-        <br />
+          <div>
+            <LableText labels="Email" />
+            <InputText placeholder="Enter your email" type="email" />
+          </div>
 
-        <LableText labels={"Password"}/>
-        <br />
-        <InputText placeholder={"Enter your password"} type={"password"}/>
-        <br />
+          <div>
+            <LableText labels="Password" />
+            <InputText placeholder="Enter your password" type="password" />
+          </div>
 
-        <LableText labels={"Confirm Password"}/>
-        <br />
-        <InputText placeholder={"Confirm your password"} type={"password"}/>
-        <br /><br />
+          <div>
+            <LableText labels="Confirm Password" />
+            <InputText placeholder="Confirm your password" type="password" />
+          </div>
 
-        <Button title={"Submit"} />
+          <div className="flex justify-center mt-6 mb-4">
+            <Button title="Submit" />
+          </div>
 
-        <p className="text-center">Already have an account? <a href="sign-in" className='text-blue-500'>Login</a></p>
-      </div>
+          <p className="text-center text-sm">
+            Already have an account? 
+            <Link to={RouteSignIn} className="text-blue-500 ml-1">Login</Link>
+          </p>
+        </div>
       </form>
-
     </div>
   )
 }

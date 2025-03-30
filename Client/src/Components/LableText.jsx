@@ -2,7 +2,7 @@ import React from 'react'
 
 const LableText = ({labels}) => {
   return (
-    <label className=" text-gray-600" >{labels}</label>
+    <label className="text-gray-700 font-medium block">{labels}</label>
   )
 }
 

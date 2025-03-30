@@ -1,11 +1,13 @@
 import React from 'react';
-
+import { FaGithubAlt } from 'react-icons/fa';
 
 export default function WebSiteLogo() {
-
   return (
-    <>
-      <span className=" px-3 pt-2 rounded-sm ml-2 mt-3 mb-3 bg-purple-50 hover:scale-110  hover:shadow-purple-600 shadow-sm "> <i className="fa-brands fa-github-alt "> Blog Hub </i></span>
-    </>
+    <a href="/" className="flex items-center">
+      <span className="px-3 py-2 rounded-sm bg-purple-50 hover:scale-105 transition-transform hover:shadow-md flex items-center"> 
+        <FaGithubAlt className="mr-2 text-purple-700" />
+        <span className="font-medium text-purple-700">Blog Hub</span>
+      </span>
+    </a>
   )
 }
