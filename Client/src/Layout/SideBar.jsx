@@ -21,16 +21,16 @@ function SideBar() {
         <div className="p-4">
           <SideBarOptionsGroup />
         </div>
-        
+
         <div className="border-t border-gray-200">
-          <button 
+          <button
             onClick={() => setShowCategories(!showCategories)}
             className="flex justify-between w-full p-4 text-gray-500 font-medium"
           >
             Categories
             <span>{showCategories ? <IoChevronUp /> : <IoChevronDown />}</span>
           </button>
-          
+
           {showCategories && (
             <div className="p-2">
               <CategoriesGroup />
