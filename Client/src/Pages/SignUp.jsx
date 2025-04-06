@@ -2,57 +2,122 @@ import React from 'react'
 import LableText from '../Components/LableText'
 import InputText from '../Components/InputText'
 import Button from '../Components/Button'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { RouteSignIn } from '../Helpers/RouteNames'
-import { FcGoogle } from 'react-icons/fc'
+import GoogleLogin from '../Components/GoogleLogin'
+import { z } from 'zod'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useForm } from 'react-hook-form'
+import { getEnv } from '../Helpers/getEnv'
+import { showToast } from '../Helpers/showToast'
 
 const SignUp = () => {
+
+  const navigate=useNavigate()
+
+  const formSchema = z.object({
+    name: z.string().min(2, "Name must be at least 2 characters"),
+    email: z.string().email("Invalid email address"),
+    password: z.string().min(8, "Password must be 8 characters long"),
+    confirmPassword: z.string()
+  }).refine((data) => data.password === data.confirmPassword, {
+    message: "Passwords do not match",
+    path: ["confirmPassword"]
+  })
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors }
+  } = useForm({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      name: '',
+      email: '',
+      password: '',
+      confirmPassword: ''
+    }
+  })
+
+  async function onSubmit(values) {
+    try {
+        const response=await fetch(`${getEnv('VITE_API_BASE_URL')}/auth/register`,{
+          method:'post',
+          headers:{'Content-type':'application/json'},
+          body:JSON.stringify(values)
+        })
+
+        const data = await response.json()
+        if(!response.ok)
+        {
+            showToast('error',data.message)
+        }
+
+        navigate(RouteSignIn)
+        showToast('success',data.message)
+
+    }
+    catch (error) {
+      showToast('error',error.message)
+    }
+  }
+
   return (
     <div className="flex justify-center items-center min-h-screen p-4">
-      <form className="w-full max-w-md bg-white rounded-lg shadow-lg p-6 sm:p-8">
+      <form className="w-full max-w-md bg-white rounded-lg shadow-lg p-6 sm:p-8" onSubmit={handleSubmit(onSubmit)}>
         <h2 className="text-center mb-6 text-2xl font-bold text-purple-700">Create Account</h2>
 
-        <button 
-          type="button" 
-          className="flex items-center justify-center w-full gap-2 border-2 border-gray-300 rounded-lg p-3 mb-4 hover:bg-gray-50 transition-colors"
-        >
-          <FcGoogle className="text-xl" />
-          <span>Continue With Google</span>
-        </button>
+        <GoogleLogin/>
 
-        <div className="flex items-center my-4">
-          <hr className="flex-grow border-gray-300" />
-          <span className="px-3 text-gray-500 text-sm">OR</span>
-          <hr className="flex-grow border-gray-300" />
-        </div>
+        
 
         <div className="space-y-4">
           <div>
             <LableText labels="Name" />
-            <InputText placeholder="Enter your name" type="text" />
+            <InputText
+              placeholder="Enter your name"
+              type="text"
+              {...register('name')}
+              error={errors.name?.message}
+            />
           </div>
 
           <div>
             <LableText labels="Email" />
-            <InputText placeholder="Enter your email" type="email" />
+            <InputText
+              placeholder="Enter your email"
+              type="email"
+              {...register('email')}
+              error={errors.email?.message}
+            />
           </div>
 
           <div>
             <LableText labels="Password" />
-            <InputText placeholder="Enter your password" type="password" />
+            <InputText
+              placeholder="Enter your password"
+              type="password"
+              {...register('password')}
+              error={errors.password?.message}
+            />
           </div>
 
           <div>
             <LableText labels="Confirm Password" />
-            <InputText placeholder="Confirm your password" type="password" />
+            <InputText
+              placeholder="Confirm your password"
+              type="password"
+              {...register('confirmPassword')}
+              error={errors.confirmPassword?.message}
+            />
           </div>
 
           <div className="flex justify-center mt-6 mb-4">
-            <Button title="Submit" />
+            <Button title="Submit" type="submit" />
           </div>
 
           <p className="text-center text-sm">
-            Already have an account? 
+            Already have an account?
             <Link to={RouteSignIn} className="text-blue-500 ml-1">Login</Link>
           </p>
         </div>

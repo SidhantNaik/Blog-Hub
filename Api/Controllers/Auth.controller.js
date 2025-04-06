@@ -1,0 +1,83 @@
+import { handleError } from "../Helpers/handleError.js"
+import User from "../Models/User.model.js"
+import bcryptjs from "bcryptjs"
+import jwt from 'jsonwebtoken'
+import { useNavigate } from "react-router-dom"
+
+export const Register = async (req, res, next) => {
+
+    try {
+        const { name, email, password } = req.body
+        const checkuser = await User.findOne({ email })
+
+        if (checkuser) {
+            next(handleError(409, "User already registered."))
+        }
+
+        const hashedPassword = bcryptjs.hashSync(password)
+
+        const user = new User({
+            name, email, password: hashedPassword
+        })
+
+        await user.save();
+
+        res.status(200).json(
+            {
+                success: true,
+                message: "Registration successful."
+            }
+        )
+    }
+    catch (error) {
+        next(handleError(500, error.message))
+    }
+}
+
+
+
+export const Login = async (req, res, next) => {
+    try {
+        const { name, password } = req.body
+        const user = await User.findOne({ email })
+
+        if (!user) {
+            next(handleError(404, "Invalid login credentials."))
+        }
+
+        const hashedPassword = user.password
+        const comparePassword = bcryptjs.compare(password, hashedPassword)
+
+        if (!comparePassword) {
+            next(handleError(404, "Invalid login credentials."))
+        }
+
+        const token = jwt.sign({
+            _id: user_id,
+            name: user.name,
+            email: user.email,
+            avatar: user.avatar
+        }, process.env.JWT_SECRET)
+
+
+        res.cookie('access_token', token, {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === "production",
+            sameSite: process.env.NODE_ENV === "production" ? 'none' : 'strict',
+            path: '/'
+        })
+
+        const newUser= user.toObject({getters:true})
+        delete newUser.password
+
+        res.status(200).json({
+            success: true,
+            user,
+            message: "Login successful"
+        })
+
+    }
+    catch (error) {
+        next(handleError(500, error.message))
+    }
+}

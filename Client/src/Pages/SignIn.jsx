@@ -2,57 +2,99 @@ import React from 'react'
 import LableText from '../Components/LableText'
 import InputText from '../Components/InputText'
 import Button from '../Components/Button'
+import { RouteIndex, RouteSignIn } from '../Helpers/RouteNames'
 import { Link } from 'react-router-dom'
 import { RouteSignUp } from '../Helpers/RouteNames'
-import { FcGoogle } from 'react-icons/fc'
+import { z } from 'zod'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useForm } from 'react-hook-form'
+import { useNavigate } from 'react-router-dom'
+import { getEnv } from '../Helpers/getEnv'
+import { showToast } from '../Helpers/showToast'
+import GoogleLogin from '../Components/GoogleLogin'
 
-//npm i zod
+
 const SignIn = () => {
 
+  const navigate=useNavigate()
 
+
+  const formSchema = z.object({
+    email: z.string().email("Invalid email address"),
+    password: z.string().min(3, "Wrong password.")
+  })
+
+  const { 
+    register, 
+    handleSubmit, 
+    formState: { errors } 
+  } = useForm({
+    resolver: zodResolver(formSchema),
+    defaultValues: {  // Changed from defaultValue to defaultValues
+      email: '',
+      password: '',
+    }
+  })
+
+  async function onSubmit(values) {
+     try {
+            const response=await fetch(`${getEnv('VITE_API_BASE_URL')}/auth/login`,{
+              method:'post',
+              headers:{'Content-type':'application/json'},
+              credentials:'include',
+              body:JSON.stringify(values)
+            })
+    
+            const data = await response.json()
+            if(!response.ok)
+            {
+                showToast('error',data.message)
+            }
+    
+            navigate(RouteIndex)
+            showToast('success',data.message)
+    
+        }
+        catch (error) {
+          showToast('error',error.message)
+        }
+  }
 
   return (
-    <div className="flex justify-center items-center min-h-screen p-4">
-      <form className="w-full max-w-md">
+    <div className="flex justify-center items-center min-h-screen p-4 bg-gray-50">
+      <form className="w-full max-w-md bg-white rounded-lg shadow-lg p-6 sm:p-8" onSubmit={handleSubmit(onSubmit)}>
         <h2 className="text-center mb-6 text-2xl font-bold text-purple-700">Login Into Account</h2>
 
-
-        <div className="bg-white border-2 rounded-lg shadow-lg p-6 sm:p-10">
-
-          <button
-            type="button"
-            className="flex items-center justify-center w-full gap-2 border-2 border-gray-300 rounded-lg p-3 mb-4 hover:bg-gray-50 transition-colors"
-          >
-            <FcGoogle className="text-xl" />
-            <span>Continue With Google</span>
-          </button>
-
-          <div className="flex items-center my-4">
-            <hr className="flex-grow border-gray-300" />
-            <span className="px-3 text-gray-500 text-sm">OR</span>
-            <hr className="flex-grow border-gray-300" />
-          </div>
-
+          <GoogleLogin/>
 
           <div className="mb-4">
             <LableText labels="Email" />
-            <InputText placeholder="Enter your email" type="email" name='email' />
+            <InputText 
+              placeholder="Enter your email" 
+              type="email" 
+              {...register('email')}
+              error={errors.email?.message}
+            />
           </div>
 
           <div className="mb-4">
             <LableText labels="Password" />
-            <InputText placeholder="Enter your Password" type="password" name='password' />
+            <InputText 
+              placeholder="Enter your Password" 
+              type="password" 
+              {...register('password')}
+              error={errors.password?.message}
+            />
           </div>
 
           <div className="flex justify-center mt-6 mb-4">
-            <Button title="Submit" />
+            <Button title="Submit" type="submit" />
           </div>
 
           <p className="text-center text-sm">
             Don't have an account?
             <Link to={RouteSignUp} className="text-blue-500 ml-1">Sign up</Link>
           </p>
-        </div>
       </form>
     </div>
   )
