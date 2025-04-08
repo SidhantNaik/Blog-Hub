@@ -50,7 +50,7 @@ const SignUp = () => {
         const data = await response.json()
         if(!response.ok)
         {
-            showToast('error',data.message)
+           return showToast('error',data.message)
         }
 
         navigate(RouteSignIn)

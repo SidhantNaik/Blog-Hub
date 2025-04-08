@@ -2,7 +2,6 @@ import { handleError } from "../Helpers/handleError.js"
 import User from "../Models/User.model.js"
 import bcryptjs from "bcryptjs"
 import jwt from 'jsonwebtoken'
-import { useNavigate } from "react-router-dom"
 
 export const Register = async (req, res, next) => {
 
@@ -38,22 +37,78 @@ export const Register = async (req, res, next) => {
 
 export const Login = async (req, res, next) => {
     try {
-        const { name, password } = req.body
+        const { email, password } = req.body
         const user = await User.findOne({ email })
 
         if (!user) {
-            next(handleError(404, "Invalid login credentials."))
+            return next(handleError(404, "Invalid login credentials."))
         }
 
         const hashedPassword = user.password
-        const comparePassword = bcryptjs.compare(password, hashedPassword)
+        const comparePassword = await bcryptjs.compare(password, hashedPassword)
 
         if (!comparePassword) {
-            next(handleError(404, "Invalid login credentials."))
+            return next(handleError(404, "Invalid login credentials."))
         }
 
         const token = jwt.sign({
-            _id: user_id,
+            _id: user._id,
+            name: user.name,
+            email: user.email,
+            avatar: user.avatar
+        }, process.env.JWT_SECRET)
+
+
+        res.cookie('access_token', token, {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === "production",
+            sameSite: process.env.NODE_ENV === "production" ? 'none' : 'strict',
+            path: '/'
+        })
+
+        const newUser= user.toObject({getters:true})
+        delete newUser.password
+
+        res.status(200).json({
+            success: true,
+            user,
+            message: "Login successful"
+        })
+
+    }
+    catch (error) {
+        next(handleError(500, error.message))
+    }
+}
+
+
+
+export const GoogleLogin = async (req, res, next) => {
+    try {
+        const { name, email, avatar } = req.body
+
+         let user
+         user = await User.findOne({ email })
+
+        if (!user) {
+
+            const password = Math.random().toString()
+            const hashedPassword = bcryptjs.hashSync(password)
+
+
+            //create new user
+            const newUser= new User({
+                name,email,password:hashedPassword,avatar
+
+            })
+
+
+            user=await newUser.save()
+        }
+
+
+        const token = jwt.sign({
+            _id: user._id,
             name: user.name,
             email: user.email,
             avatar: user.avatar
