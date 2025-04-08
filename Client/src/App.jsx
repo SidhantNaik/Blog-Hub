@@ -1,14 +1,12 @@
-
-import './App.css'
-import { Button } from './components/ui/button'
+import "./App.css";
+import { Button } from "./components/ui/button";
 
 function App() {
-
   return (
     <>
-      <Button>Click me</Button>
+      <Button className="bg-purple-950">kgeegcwkk</Button>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
