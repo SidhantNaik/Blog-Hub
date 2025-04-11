@@ -6,22 +6,25 @@ import { showToast } from '../Helpers/showToast'
 import { useNavigate } from 'react-router-dom'
 import { getEnv } from '../Helpers/getEnv'
 import { RouteIndex } from '../Helpers/RouteNames'
+import {useDispatch} from 'react-redux'
+import { setUser } from '../redux/user/user.slice'
 
 
 function GoogleLogin() {
 
-    const navigate=useNavigate()
+    const navigate = useNavigate()
+    const dispath = useDispatch()
 
     const handleLogin = async () => {
-        
+
         try {
             const googleResponse = await signInWithPopup(auth, provider)
 
-            const user=googleResponse.user
+            const user = googleResponse.user
 
-            const bodyData={
-                name :user.displayName,
-                email : user.email,
+            const bodyData = {
+                name: user.displayName,
+                email: user.email,
                 avatar: user.photoURL
             }
 
@@ -35,9 +38,10 @@ function GoogleLogin() {
 
             const data = await response.json()
             if (!response.ok) {
-               return showToast('error', data.message)
+                return showToast('error', data.message)
             }
 
+            dispath(setUser(data.user))
             navigate(RouteIndex)
             showToast('success', data.message)
 
