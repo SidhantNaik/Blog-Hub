@@ -4,6 +4,7 @@ import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import mongoose from 'mongoose';
 import AuthRoute from './Routes/Auth.route.js';
+import UserRoute from './Routes/User.route.js';
 
 dotenv.config()
 
@@ -22,6 +23,7 @@ app.use(cors(
 
 // rooute setup
 app.use('/Api/auth',AuthRoute)
+app.use('/Api/user',UserRoute)
 
 
 mongoose.connect(process.env.MONGODB_CONN, { dbName: 'Blog-Hub-DB' })

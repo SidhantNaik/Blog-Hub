@@ -56,7 +56,7 @@ function GoogleLogin() {
         <>
             <button
                 type="button"
-                className="flex items-center justify-center w-full gap-2 border-2 border-gray-00 rounded-lg p-3 mb-4 hover:bg-gray-200 transition-colors"
+                className="flex items-center cursor-pointer justify-center w-full gap-2 border-2 border-gray-00 rounded-lg p-3 mb-4 hover:bg-gray-200 transition-colors"
                 onClick={handleLogin}>
                 <FcGoogle className="text-xl" />
                 <span>Continue With Google</span>

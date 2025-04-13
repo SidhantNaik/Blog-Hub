@@ -13,7 +13,7 @@ const Topbar = () => {
   const user = useSelector((state) => state.user);
   const dropdownRef = useRef(null);
   const avatarBtnRef = useRef(null);
-  
+
   const toggleMenu = () => setMenuOpen(!menuOpen);
   const toggleUserDropdown = () => setShowUserDropdown(!showUserDropdown);
 
@@ -21,8 +21,8 @@ const Topbar = () => {
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (
-        showUserDropdown && 
-        dropdownRef.current && 
+        showUserDropdown &&
+        dropdownRef.current &&
         !dropdownRef.current.contains(event.target) &&
         avatarBtnRef.current &&
         !avatarBtnRef.current.contains(event.target)
@@ -41,12 +41,12 @@ const Topbar = () => {
     <div className="sticky top-0 z-50 bg-white border-b border-gray-200 shadow-sm">
       <div className="flex justify-between items-center h-16 md:h-20 px-4 lg:px-6">
         <WebSiteLogo />
-        
+
         {/* SearchBar - visible on desktop, hidden on mobile */}
         <div className="hidden md:block flex-grow mx-4">
           <SearchBar />
         </div>
-        
+
         {/* User controls - visible on desktop */}
         <div className="hidden md:flex items-center gap-4">
           {!user.isLoggedIn ? (
@@ -63,7 +63,7 @@ const Topbar = () => {
               >
                 <Avatar src={user.user.avatar} alt={user.user.name} />
               </button>
-              
+
               {showUserDropdown && (
                 <UserDropDown
                   ref={dropdownRef}
@@ -76,7 +76,7 @@ const Topbar = () => {
             </div>
           )}
         </div>
-        
+
         {/* Mobile menu toggle */}
         <button
           onClick={toggleMenu}
@@ -87,7 +87,7 @@ const Topbar = () => {
           {menuOpen ? <IoClose size={24} /> : <IoMenu size={24} />}
         </button>
       </div>
-      
+
       {/* Mobile dropdown menu */}
       {menuOpen && (
         <div className="md:hidden bg-white px-4 py-3 border-t border-gray-200 animate-fadeIn">
@@ -105,7 +105,7 @@ const Topbar = () => {
                   <Avatar src={user.user.avatar} alt={user.user.name} size="lg" />
                 </button>
                 <span className="font-medium">{user.user.name}</span>
-                
+
                 {showUserDropdown && (
                   <UserDropDown
                     ref={dropdownRef}

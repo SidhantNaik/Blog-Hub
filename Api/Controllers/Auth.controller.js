@@ -66,12 +66,12 @@ export const Login = async (req, res, next) => {
             path: '/'
         })
 
-        const newUser= user.toObject({getters:true})
+        const newUser = user.toObject({ getters: true })
         delete newUser.password
 
         res.status(200).json({
             success: true,
-            user:newUser,
+            user: newUser,
             message: "Login successful"
         })
 
@@ -87,8 +87,8 @@ export const GoogleLogin = async (req, res, next) => {
     try {
         const { name, email, avatar } = req.body
 
-         let user
-         user = await User.findOne({ email })
+        let user
+        user = await User.findOne({ email })
 
         if (!user) {
 
@@ -97,13 +97,13 @@ export const GoogleLogin = async (req, res, next) => {
 
 
             //create new user
-            const newUser= new User({
-                name,email,password:hashedPassword,avatar
+            const newUser = new User({
+                name, email, password: hashedPassword, avatar
 
             })
 
 
-            user=await newUser.save()
+            user = await newUser.save()
         }
 
 
@@ -122,12 +122,12 @@ export const GoogleLogin = async (req, res, next) => {
             path: '/'
         })
 
-        const newUser= user.toObject({getters:true})
+        const newUser = user.toObject({ getters: true })
         delete newUser.password
 
         res.status(200).json({
             success: true,
-            user:newUser,
+            user: newUser,
             message: "Login successful"
         })
 
@@ -141,16 +141,16 @@ export const GoogleLogin = async (req, res, next) => {
 
 export const Logout = async (req, res, next) => {
     try {
-        
 
-        res.clearCookie('access_token',  {
+
+        res.clearCookie('access_token', {
             httpOnly: true,
             secure: process.env.NODE_ENV === "production",
             sameSite: process.env.NODE_ENV === "production" ? 'none' : 'strict',
             path: '/'
         })
 
-       
+
 
         res.status(200).json({
             success: true,

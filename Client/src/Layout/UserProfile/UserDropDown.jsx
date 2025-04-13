@@ -1,52 +1,45 @@
 import React, { forwardRef } from 'react';
 import Avatar from './Avatar';
-import { Link } from 'react-router-dom';
-import { FaRegUser,FaPlus } from 'react-icons/fa';
+import { Link, useNavigate } from 'react-router-dom';
+import { FaRegUser, FaPlus } from 'react-icons/fa';
 import { IoLogOutOutline } from 'react-icons/io5';
-import {useDispatch} from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { getEnv } from '../../Helpers/getEnv'
 import { showToast } from '../../Helpers/showToast'
 import { removeUser } from '../../redux/user/user.slice';
-import { useNavigate } from 'react-router-dom'
-import { RouteIndex } from '../../Helpers/RouteNames'
-
-
-
-
-
+import { RouteIndex, RouteProfile } from '../../Helpers/RouteNames'
 
 const UserDropDown = forwardRef(({ avatar, name, email, onClose }, ref) => {
-
-  const dispath = useDispatch();
+  const dispatch = useDispatch(); // Fixed typo: dispath -> dispatch
   const navigate = useNavigate()
 
-  const handleLogout = async () => { 
+  const handleLogout = async (e) => {
+    e.stopPropagation(); // Prevent the parent's onClick from firing
     try {
-      const response=await fetch(`${getEnv('VITE_API_BASE_URL')}/auth/logout`, {
-        method:'post',
-        credentials:'include',
+      const response = await fetch(`${getEnv('VITE_API_BASE_URL')}/auth/logout`, {
+        method: 'post',
+        credentials: 'include',
       })
 
       const data = await response.json()
-      if(!response.ok)
-      {
-         return showToast('error',data.message)
+      if (!response.ok) {
+        return showToast('error', data.message)
       }
 
-      dispath(removeUser(data.user))
+      dispatch(removeUser(data.user))
       navigate(RouteIndex)
-      showToast('success',data.message)
-
-  }
-  catch (error) {
-    showToast('error',error.message)
-  }
+      showToast('success', data.message)
+      onClose(); // Close the dropdown after successful logout
+    }
+    catch (error) {
+      showToast('error', error.message)
+    }
   }
 
   return (
-    <div 
+    <div
       ref={ref}
-      className="absolute right-0 top-12 w-64 bg-white rounded-lg shadow-lg border border-gray-200 overflow-hidden z-50"
+      className="absolute cursor-pointer right-0 top-12 w-64 bg-white rounded-lg shadow-lg border border-gray-200 overflow-hidden z-50"
     >
       <div className="p-4 bg-gradient-to-r from-purple-100 to-blue-100">
         <div className="flex items-center gap-3">
@@ -59,16 +52,18 @@ const UserDropDown = forwardRef(({ avatar, name, email, onClose }, ref) => {
       </div>
 
       <div className="py-2">
-        <Link 
-          to="/profile" 
+        <Link
+          to={RouteProfile}
+          onClick={onClose} // Close dropdown when navigating
           className="flex items-center gap-3 px-4 py-2 hover:bg-gray-100 transition-colors"
         >
           <FaRegUser className="text-gray-600" />
           <span>Profile</span>
         </Link>
 
-        <Link 
-          to="/create-blog" 
+        <Link
+          to="/create-blog"
+          onClick={onClose} // Close dropdown when navigating
           className="flex items-center gap-3 px-4 py-2 hover:bg-gray-100 transition-colors"
         >
           <FaPlus className="text-gray-600" />
@@ -77,13 +72,13 @@ const UserDropDown = forwardRef(({ avatar, name, email, onClose }, ref) => {
       </div>
 
       <div className="border-t border-gray-200 py-2">
-          <div 
-            onClick={onClose}
-            className="flex items-center gap-3 px-4 py-2 text-red-600 hover:bg-gray-100 transition-colors w-full text-left"
-          >
-            <IoLogOutOutline className="text-red-600" />
-            <button onClick={handleLogout}>Logout</button>
-          </div>
+        <button
+          onClick={handleLogout}
+          className="flex items-center gap-3 px-4 py-2 text-red-600 hover:bg-gray-100 transition-colors w-full text-left"
+        >
+          <IoLogOutOutline className="text-red-600" />
+          <span>Logout</span>
+        </button>
       </div>
     </div>
   );

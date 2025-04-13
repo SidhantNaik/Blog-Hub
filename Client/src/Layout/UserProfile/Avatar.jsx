@@ -44,17 +44,19 @@ const Avatar = ({ src, alt, size = "md", className = "" }) => {
       `}
     >
       {src ? (
-        <img 
-          src={src} 
-          alt={alt || "User avatar"} 
-          className="w-full h-full object-cover"
-          onError={(e) => {
-            // If image loading fails, show the text avatar instead
-            e.target.style.display = 'none';
-            e.target.parentNode.classList.add(getColorClass(alt));
-            e.target.parentNode.setAttribute('data-content', firstLetter);
-          }}
-        />
+        <div className="relative w-full h-full">
+          <img 
+            src={src} 
+            alt={alt || "User avatar"} 
+            className="absolute inset-0 w-full h-full object-cover"
+            onError={(e) => {
+              // If image loading fails, show the text avatar instead
+              e.target.style.display = 'none';
+              e.target.parentNode.parentNode.classList.add(getColorClass(alt));
+              e.target.parentNode.parentNode.setAttribute('data-content', firstLetter);
+            }}
+          />
+        </div>
       ) : (
         <div className={`w-full h-full flex items-center justify-center text-white font-bold ${getColorClass(alt)}`}>
           {firstLetter}

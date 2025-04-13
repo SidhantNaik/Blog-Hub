@@ -13,7 +13,7 @@ const Layout = () => {
                 <div className="w-full md:w-1/4 lg:w-1/5">
                     <SideBar />
                 </div>
-                <div className="w-full md:w-3/4 lg:w-4/5 p-4 pb-16">
+                <div className="w-full  md:w-3/4 lg:w-4/5 p-4 pb-16">
                     <Outlet />
                 </div>
             </main>

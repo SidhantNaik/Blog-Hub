@@ -1,10 +1,10 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import './App.css'
 import  Layout  from './Layout/Layout'
-import { RouteIndex, RouteSignIn, RouteSignUp } from './Helpers/RouteNames'
+import { RouteIndex, RouteProfile, RouteSignIn, RouteSignUp } from './Helpers/RouteNames'
 import Index from './Pages/Index'
 import SignIn from './Pages/SignIn'
 import SignUp from './Pages/SignUp'
+import Profile from './Pages/Profile'
 
 function App() {
 
@@ -13,6 +13,9 @@ function App() {
         <Routes>
           <Route path={RouteIndex} element={<Layout/>}>
             <Route index element={<Index/>}/>
+
+            <Route path={RouteProfile} element={<Profile/>} />
+
           </Route>
 
           <Route path={RouteSignIn} element={<SignIn/>} />
