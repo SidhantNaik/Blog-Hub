@@ -4,6 +4,7 @@ import { Button } from "./ui/button";
 import { Link } from "react-router-dom";
 import { IoLogInOutline } from "react-icons/io5";
 import SearchBox from "./SearchBox";
+import { RouteSignIn } from "@/helpers/RouteName";
 
 const Topbar = () => {
   return (
@@ -16,7 +17,7 @@ const Topbar = () => {
       </div>
       <div>
         <Button asChild>
-          <Link to="">
+          <Link to={RouteSignIn}>
             <IoLogInOutline />
             Sign In
           </Link>

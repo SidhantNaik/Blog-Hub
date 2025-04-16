@@ -1,2 +1,3 @@
-    export const RouteIndex='/'
-    
+export const RouteIndex = "/";
+export const RouteSignIn = "/Sign-in";
+export const RouteSignUp = "/Sign-up";
