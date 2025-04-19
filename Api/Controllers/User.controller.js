@@ -1,5 +1,6 @@
 import User from '../Models/user.model.js'
 import { handleError } from '../Helpers/handleError.js'
+import cors from 'cors'
 
 export const getUser = async (req, res, next) => {
     try {
@@ -20,5 +21,21 @@ export const getUser = async (req, res, next) => {
     }
     catch (error) {
         next(handleError(500, error.message))
+    }
+}
+
+
+export const updateUser= async (req,res,next)=>
+{
+    try {
+        console.log( req.file);
+        
+        res.status(200).json({
+            success: true,
+            message: "Data updated.",
+            
+        })
+    } catch (error) {
+        next (handleError(500, error.message))
     }
 }

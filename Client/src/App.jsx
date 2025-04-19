@@ -9,6 +9,7 @@ import Profile from './Pages/Profile'
 function App() {
 
   return (
+    
     <BrowserRouter>
         <Routes>
           <Route path={RouteIndex} element={<Layout/>}>

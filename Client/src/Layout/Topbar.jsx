@@ -49,32 +49,32 @@ const Topbar = () => {
 
         {/* User controls - visible on desktop */}
         <div className="hidden md:flex items-center gap-4">
-          {!user.isLoggedIn ? (
-            <SignInButton />
-          ) : (
-            <div className="relative">
-              <button
-                ref={avatarBtnRef}
-                onClick={toggleUserDropdown}
-                className="focus:outline-none rounded-full focus:ring-2 focus:ring-purple-500 focus:ring-offset-2"
-                aria-label="User menu"
-                aria-expanded={showUserDropdown}
-                aria-haspopup="true"
-              >
-                <Avatar src={user.user.avatar} alt={user.user.name} />
-              </button>
+              {!user.isLoggedIn ? (
+                <SignInButton />
+              ) : (
+                <div className="relative">
+                  <button
+                    ref={avatarBtnRef}
+                    onClick={toggleUserDropdown}
+                    className="focus:outline-none rounded-full focus:ring-2 focus:ring-purple-500 focus:ring-offset-2"
+                    aria-label="User menu"
+                    aria-expanded={showUserDropdown}
+                    aria-haspopup="true"
+                  >
+                    <Avatar src={user.user?.avatar} alt={user.user?.name || ''} />
+                  </button>
 
-              {showUserDropdown && (
-                <UserDropDown
-                  ref={dropdownRef}
-                  avatar={user.user.avatar}
-                  name={user.user.name}
-                  email={user.user.email}
-                  onClose={() => setShowUserDropdown(false)}
-                />
+                  {showUserDropdown && (
+                    <UserDropDown
+                      ref={dropdownRef}
+                      avatar={user.user?.avatar}
+                      name={user.user?.name}
+                      email={user.user?.email}
+                      onClose={() => setShowUserDropdown(false)}
+                    />
+                  )}
+                </div>
               )}
-            </div>
-          )}
         </div>
 
         {/* Mobile menu toggle */}
@@ -102,16 +102,16 @@ const Topbar = () => {
                   className="focus:outline-none"
                   aria-label="User menu"
                 >
-                  <Avatar src={user.user.avatar} alt={user.user.name} size="lg" />
+                  <Avatar src={user.user?.avatar} alt={user.user?.name || ''} size="lg" />
                 </button>
-                <span className="font-medium">{user.user.name}</span>
+                <span className="font-medium">{user.user?.name || ''}</span>
 
                 {showUserDropdown && (
                   <UserDropDown
                     ref={dropdownRef}
-                    avatar={user.user.avatar}
-                    name={user.user.name}
-                    email={user.user.email}
+                    avatar={user.user?.avatar}
+                    name={user.user?.name}
+                    email={user.user?.email}
                     onClose={() => setShowUserDropdown(false)}
                   />
                 )}

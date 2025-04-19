@@ -3,19 +3,19 @@ import React from 'react';
 const Avatar = ({ src, alt, size = "md", className = "" }) => {
   // Size classes mapping
   const sizeClasses = {
-    xs: "w-8 h-8 text-xs",
-    sm: "w-10 h-10 text-sm",
-    md: "w-12 h-12 text-base",
-    lg: "w-16 h-16 text-xl",
-    xl: "w-20 h-20 text-2xl"
+    xs: "w-8 h-8",
+    sm: "w-10 h-10",
+    md: "w-12 h-12",
+    lg: "w-16 h-16",
+    xl: "w-20 h-20"
   };
 
   // Get the appropriate size class or default to md
   const sizeClass = sizeClasses[size] || sizeClasses.md;
-  
+
   // If no image is provided, create a text avatar with the first letter of the alt text
   const firstLetter = alt ? alt.charAt(0).toUpperCase() : 'U';
-  
+
   // Generate a color based on the name to make it consistent for the same user
   const getColorClass = (name) => {
     const colors = [
@@ -27,23 +27,27 @@ const Avatar = ({ src, alt, size = "md", className = "" }) => {
       "bg-pink-500",
       "bg-indigo-500"
     ];
-    
-    // Simple hash function to choose a color based on the name
     const charSum = name?.split('').reduce((sum, char) => sum + char.charCodeAt(0), 0) || 0;
     return colors[charSum % colors.length];
   };
 
   return (
-    <div 
+    <div
       className={`
         ${sizeClass} 
-        relative rounded-full overflow-hidden flex items-center justify-center
-        ring-2 ring-white shadow-md
-        transition-transform hover:scale-105
+        rounded-full 
+        overflow-hidden 
+        flex 
+        items-center 
+        justify-center 
+        ring-2 ring-gray-300
+        shadow-sm
+        text-white
+        font-bold
         ${className}
       `}
     >
-      {src ? (
+           {src ? (
         <div className="relative w-full h-full">
           <img 
             src={src} 
