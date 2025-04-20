@@ -13,13 +13,17 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { Input } from "@/components/ui/input";
 import { Card } from "@/components/ui/card";
-import { RouteSignIn, RouteSignUp } from "@/helpers/RouteName";
-import { Link } from "react-router-dom";
+import { RouteIndex, RouteSignIn, RouteSignUp } from "@/helpers/RouteName";
+import { Link, useNavigate } from "react-router-dom";
+import { showToast } from "@/helpers/showToast";
+import { getEnv } from "@/helpers/getEnv";
+import { use } from "react";
 
 const SignIn = () => {
+  const navigate = useNavigate();
   const formSchema = z.object({
     email: z.string().email(),
-    password: z.string().min(8, "Password must be at least 8 charchter long"),
+    password: z.string().min(3, "Password field required."),
   });
 
   const form = useForm({
@@ -30,8 +34,33 @@ const SignIn = () => {
     },
   });
 
-  function onSubmit(values) {
-    console.log(values);
+  async function onSubmit(values) {
+    try {
+      const response = await fetch(
+        `${getEnv("VITE_API_BASE_URL")}/auth/login`,
+        {
+          method: "post",
+          headers: { "content-type": "application/json" },
+          credentials: "include",
+          body: JSON.stringify(values),
+        }
+      );
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        return showToast("error", data.message || "Login failed.");
+        
+      }
+
+      showToast("success", data.message || "Login successful!.");
+
+      setTimeout(() => {
+        navigate(RouteIndex);
+      }, 1500);
+    } catch (error) {
+      showToast("error", error.message || "Something went wrong.");
+    }
   }
 
   return (
@@ -91,7 +120,7 @@ const SignIn = () => {
                 </Link>
               </div>
             </div>
-          </form> 
+          </form>
         </Form>
       </Card>
     </div>

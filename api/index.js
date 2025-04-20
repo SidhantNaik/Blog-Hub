@@ -3,6 +3,7 @@ import dotenv, { config } from "dotenv";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 import mongoose from "mongoose";
+import AuthRoute from "./routes/Auth.route.js";
 
 dotenv.config();
 
@@ -17,6 +18,11 @@ app.use(
     credentials: true,
   })
 );
+
+//route Setup
+app.use('/api/auth',AuthRoute)
+
+
 
 mongoose
   .connect(process.env.MONGODB_CONN, { dbName: "Blog_Hub" })
