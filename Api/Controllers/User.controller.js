@@ -1,6 +1,5 @@
 import User from '../Models/user.model.js'
 import { handleError } from '../Helpers/handleError.js'
-import cors from 'cors'
 
 export const getUser = async (req, res, next) => {
     try {
