@@ -47,7 +47,7 @@ function Profile() {
     });
 
     useEffect(() => {
-     
+
         if (userData?.user) {
             form.reset({
                 name: userData.user?.name || '',
@@ -80,7 +80,8 @@ function Profile() {
             }
 
             dispatch(setUser(data.user));
-            showToast('success', 'Profile updated successfully');
+            showToast('success', data.message);
+
         } catch (error) {
             showToast('error', error.message);
         }
