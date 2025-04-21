@@ -1,39 +1,37 @@
 import React from 'react'
-import SideBarOptions from './SideBarOptions'
 import { IoHome } from "react-icons/io5";
 import { BiSolidCategory } from "react-icons/bi";
 import { ImBlogger } from "react-icons/im";
-import { FaComments } from "react-icons/fa";
-import { FaUser } from "react-icons/fa";
+import { FaComments, FaUser } from "react-icons/fa";
 import { Link } from 'react-router-dom';
+import { RouteCategoryDetails, RouteIndex } from '../Helpers/RouteNames';
 
+const sidebarItemClass = "flex items-center gap-3 p-2 my-3 rounded-lg cursor-pointer hover:bg-purple-100 hover:scale-105 transition-all duration-200";
+const iconClass = "text-xl text-purple-600";
+const textClass = "font-medium";
 
 
 function SideBarOptionsGroup() {
   return (
     <>
-      <SideBarOptions icon={<IoHome />} title={'Home'} >
-        <Link to=""></Link>
-      </SideBarOptions>
-
-      <SideBarOptions icon={<BiSolidCategory />} title={'Categories'}  >
-        <Link to=""></Link>
-      </SideBarOptions>
-
-      <SideBarOptions icon={<ImBlogger />} title={'Blogs'}  >
-        <Link to=""></Link>
-      </SideBarOptions>
-
-      <SideBarOptions icon={<FaComments />} title={'Comments'} >
-        <Link to=""></Link>
-      </SideBarOptions>
-
-      <SideBarOptions icon={<FaUser />} title={'User'}  >
-        <Link to=""></Link>
-      </SideBarOptions>
-
+      <SideBarOption icon={<IoHome />} title="Home" to={RouteIndex} />
+      <SideBarOption icon={<BiSolidCategory />} title="Categories" to={RouteCategoryDetails} />
+      <SideBarOption icon={<ImBlogger />} title="Blogs" to={RouteIndex} />
+      <SideBarOption icon={<FaComments />} title="Comments" to={RouteIndex} />
+      <SideBarOption icon={<FaUser />} title="User" to={RouteIndex} />
     </>
   )
 }
+
+
+function SideBarOption({ icon, title, to }) {
+  return (
+    <Link to={to} className={sidebarItemClass}>
+      <span className={iconClass}>{icon}</span>
+      <span className={textClass}>{title}</span>
+    </Link>
+  );
+}
+
 
 export default SideBarOptionsGroup

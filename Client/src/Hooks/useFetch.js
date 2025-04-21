@@ -1,37 +1,41 @@
-import { useEffect, useState } from "react"
+import { useState, useEffect } from 'react';
 
-export const useFetch =  (url, options = {}, dependencies = []) => {
-    const [data, setData] = useState()
-    const [loading, setLoading] = useState(false)
-    const [error, setError] = useState()
+export const useFetch = (url, options = {}) => {
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-    
-    useEffect(() => {
-        
-        const fetData = async () => {
-            setLoading(true)
-            try {
-                    const respones = await fetch(url, options)
-                    const responesData = await respones.json()
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(url, {
+          ...options,
+          headers: {
+            'Content-Type': 'application/json',
+            ...options.headers,
+          },
+        });
 
-                    if (!respones.ok) {
-                        throw new Error(`Error: ${respones.statusText},${respones.status}`)
-                    }
-
-                    setData(responesData)
-                    setError()
-
-                } catch (error) {
-                    setError(error)
-                } finally {
-                    setLoading(false)
-                }
-
+        if (!response.ok) {
+          // Get error details from response
+          const errorBody = await response.text();
+          console.error('Error response:', errorBody);
+          throw new Error(`HTTP error! status: ${response.status}, details: ${errorBody}`);
         }
-        fetData()
-    }, dependencies)
 
+        const result = await response.json();
+        setData(result);
+        setError(null);
+      } catch (err) {
+        setError(err.message);
+        setData(null);
+      } finally {
+        setLoading(false);
+      }
+    };
 
+    fetchData();
+  }, [url, JSON.stringify(options)]); // Add options to dependency array
 
-    return { data, loading, error }
-}
+  return { data, loading, error };
+};

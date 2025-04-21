@@ -5,6 +5,7 @@ import cors from 'cors';
 import mongoose from 'mongoose';
 import AuthRoute from './Routes/Auth.route.js';
 import UserRoute from './Routes/User.route.js';
+import CategoryRoute from './Routes/Category.route.js';
 
 dotenv.config()
 
@@ -24,6 +25,8 @@ app.use(cors(
 // rooute setup
 app.use('/Api/auth',AuthRoute)
 app.use('/Api/user',UserRoute)
+app.use('/Api/category',CategoryRoute)
+
 
 
 mongoose.connect(process.env.MONGODB_CONN, { dbName: 'Blog-Hub-DB' })
