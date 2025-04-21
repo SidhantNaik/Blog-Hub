@@ -5,7 +5,7 @@ const CategoryRoute = express.Router()
 
 CategoryRoute.post('/add',addCategory)
 CategoryRoute.put('/update/:categoryid',updateCategory)
-CategoryRoute.post('/show/:categoryid',showCategory)
+CategoryRoute.get('/show/:categoryid',showCategory)
 CategoryRoute.delete('/delete/:categoryid',deleteCategory)
 CategoryRoute.get('/all-category',getAllCategory)
 

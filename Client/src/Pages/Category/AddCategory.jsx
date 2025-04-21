@@ -34,14 +34,14 @@ function AddCategory() {
         }
     })
 
-    const categoryName = watch('name'); // Add this line outside useEffect
+    const categoryName = watch('name'); 
 
     useEffect(() => {
         if(categoryName) {
             const slug = slugify(categoryName, {lower: true})
             setValue('slug', slug)
         }
-    }, [categoryName, setValue]) // Changed dependency array to watchedName
+    }, [categoryName, setValue]) 
 
     async function onSubmit(values) {
        try {

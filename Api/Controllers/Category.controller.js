@@ -24,17 +24,45 @@ export const addCategory = async (req, res, next) => {
 }
 
 
-export const showCategory = async (req, resizeBy, next) => {
-    try {
 
+export const showCategory = async (req, res, next) => {
+    try {
+        const {categoryid} = req.params
+        const category = await Category.findById(categoryid)
+
+        if (!category) {
+            return next(handleError(404, "Category not found"))
+        }
+
+        res.status(200).json({
+            category
+        });
+        
     } catch (error) {
         next(handleError(500, error.message))
     }
 }
 
 
-export const updateCategory = async (req, resizeBy, next) => {
+export const updateCategory = async (req, res, next) => {
     try {
+        const {name,slug}=req.body
+        const {categoryid} = req.params
+
+        const category = await Category.findByIdAndUpdate(categoryid,
+            {
+                name,slug
+            },
+            { new: true } 
+        ) 
+
+
+        res.status(200).json({
+            sccess:true,
+            message: "Category updated successfuly.",
+            category
+
+        })
 
     } catch (error) {
         next(handleError(500, error.message))

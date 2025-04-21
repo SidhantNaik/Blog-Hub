@@ -1,7 +1,7 @@
 import React from 'react'
 import Button from '../../Components/Button'
 import { Link } from 'react-router-dom'
-import { RouteAddCategory } from '../../Helpers/RouteNames'
+import { RouteAddCategory, RouteEditCategory } from '../../Helpers/RouteNames'
 import Table from '../../Components/TableComponents/Table'
 import TableRow from '../../Components/TableComponents/TableRow'
 import TableCell from '../../Components/TableComponents/TableCell'
@@ -26,7 +26,6 @@ const CategoryDetails = () => {
     return <div>Loading...</div>;
   }
 
-  console.log(CategoryData)
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -53,7 +52,9 @@ const CategoryDetails = () => {
                 <TableCell className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{category.slug}</TableCell>
                 <TableCell className="px-6 py-4 whitespace-nowrap text-sm font-medium space-x-3">
                   <button className="text-blue-600 hover:text-blue-900 mx-1 cursor-pointer">
+                    <Link to={RouteEditCategory(category._id)}>
                     <FaEdit className="w-5 h-5" />
+                    </Link>
                   </button>
                   <button className="text-red-600 hover:text-red-900 mx-1 cursor-pointer">
                     <MdDelete className="w-5 h-5" />
