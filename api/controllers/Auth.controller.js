@@ -63,7 +63,7 @@ export const Login = async (req, res, next) => {
     delete newUser.password;
     res.status(200).json({
       success: true,
-      newUser,
+      user: newUser,
       message: "Login Successful.",
     });
   } catch (error) {
@@ -86,7 +86,7 @@ export const GoogleLogin = async (req, res, next) => {
         password: hashedPassword,
         avatar,
       });
-        user=await newUser.save()
+      user = await newUser.save();
     }
 
     const token = jwt.sign(
@@ -110,8 +110,27 @@ export const GoogleLogin = async (req, res, next) => {
     delete newUser.password;
     res.status(200).json({
       success: true,
-      newUser,
+      user: newUser,
       message: "Login Successful.",
+    });
+  } catch (error) {
+    next(handleError(500, error.message));
+  }
+};
+
+export const Logout = async (req, res, next) => {
+  try {
+   
+    res.clearCookie("access_token",  {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: process.env.NODE_ENV === "production" ? "none" : "strict",
+      path: "/",
+    });
+
+    res.status(200).json({
+      success: true,
+      message: "Logout Successful.",
     });
   } catch (error) {
     next(handleError(500, error.message));

@@ -18,8 +18,14 @@ import { Link, useNavigate } from "react-router-dom";
 import { showToast } from "@/helpers/showToast";
 import { getEnv } from "@/helpers/getEnv";
 import { use } from "react";
+import { useDispatch } from "react-redux";
+import { setUser } from "@/redux/user/user.slice";
+import GoogleLogin from "@/components/GoogleLogin";
+
 
 const SignIn = () => {
+  const dispath = useDispatch();
+
   const navigate = useNavigate();
   const formSchema = z.object({
     email: z.string().email(),
@@ -50,8 +56,9 @@ const SignIn = () => {
 
       if (!response.ok) {
         return showToast("error", data.message || "Login failed.");
-        
       }
+
+      dispath(setUser(data.user));
 
       showToast("success", data.message || "Login successful!.");
 
@@ -69,6 +76,13 @@ const SignIn = () => {
         <h1 className=" text-2xl font-bold text-center mb-5">
           Login Into Account
         </h1>
+        <div>
+          <GoogleLogin />
+          <div className="border my-5 flex justify-center items-center">
+            <span className="absolute bg-white text-sm">Or</span>
+          </div>
+        </div>
+
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
             <div className="mb-3">
