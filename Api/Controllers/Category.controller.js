@@ -72,6 +72,14 @@ export const updateCategory = async (req, res, next) => {
 
 export const deleteCategory = async (req, resizeBy, next) => {
     try {
+        const {categoryid} = req.params
+        await Category.findByIdAndDelete(categoryid) 
+        
+        resizeBy.status(200).json({
+            success:true,
+            message: "Category deleted successfuly."
+        })
+
 
     } catch (error) {
         next(handleError(500, error.message))

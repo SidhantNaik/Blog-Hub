@@ -10,6 +10,10 @@ import { useFetch } from '../../hooks/useFetch'
 import { getEnv } from '../../Helpers/getEnv'
 import { FaEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
+import { deleteData } from '../../Helpers/handleDelete'
+import { showToast } from '../../Helpers/showToast'
+import Loading from '../../Components/Loading'
+
 
 const CategoryDetails = () => {
 
@@ -18,13 +22,24 @@ const CategoryDetails = () => {
     credentials: 'include',
   });
 
+  const handleDelete =  (id) => {
+      const response =  deleteData(`${getEnv('VITE_API_BASE_URL')}/category/delete/${id}`)
+      
+      if (response) {
+        window.location.reload(); // Add this line to refresh the page
+        showToast('success', 'Category deleted successfully')
+      } else {
+        showToast('error', 'Failed to delete category')
+      }
+  }
+
   if (error) {
     console.error('Error fetching categories:', error);
   }
 
-  if (loading) {
-    return <div>Loading...</div>;
-  }
+  if (loading) 
+    return <Loading/>
+  
 
 
   return (
@@ -53,20 +68,22 @@ const CategoryDetails = () => {
                 <TableCell className="px-6 py-4 whitespace-nowrap text-sm font-medium space-x-3">
                   <button className="text-blue-600 hover:text-blue-900 mx-1 cursor-pointer">
                     <Link to={RouteEditCategory(category._id)}>
-                    <FaEdit className="w-5 h-5" />
+                      <FaEdit className="w-5 h-5" />
                     </Link>
                   </button>
-                  <button className="text-red-600 hover:text-red-900 mx-1 cursor-pointer">
+                  <button onClick={() => handleDelete(category._id)} className="text-red-600 hover:text-red-900 mx-1 cursor-pointer">
                     <MdDelete className="w-5 h-5" />
                   </button>
                 </TableCell>
-              </TableRow> 
+              </TableRow>
             ))}
+           
           </tbody>
         </Table>
       </div>
     </div>
   )
+
 }
 
 export default CategoryDetails
