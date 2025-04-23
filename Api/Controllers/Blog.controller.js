@@ -66,6 +66,14 @@ export const updateBlog = async (req, res, next) => {
 
 export const deleteBlog = async (req, res, next) => {
   try {
+    const { blogid } = req.params
+    await Blog.findByIdAndDelete(blogid)
+
+    resizeBy.status(200).json({
+      success: true,
+      message: "Blog deleted successfuly."
+    })
+
   } catch (error) {
     return next(handleError(500, error.message));
   }
@@ -73,6 +81,17 @@ export const deleteBlog = async (req, res, next) => {
 
 export const showBlog = async (req, res, next) => {
   try {
+    const blog = await Blog.find()
+      .populate("author", "name")
+      .populate("category", "name")
+      .sort({ createdAt: -1 })
+      .lean()
+      .exec();
+
+    res.status(200).json({
+      blog
+    });
+
   } catch (error) {
     return next(handleError(500, error.message));
   }

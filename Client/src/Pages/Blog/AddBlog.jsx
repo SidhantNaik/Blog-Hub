@@ -131,7 +131,7 @@ function AddBlog() {
           onSubmit={handleSubmit(onSubmit)}
         >
           <h2 className="text-center mb-6 text-2xl font-bold text-purple-700">
-            Add Category
+            Add Blog
           </h2>
 
           <div className="space-y-4">
