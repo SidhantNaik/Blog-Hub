@@ -9,8 +9,7 @@ import slugify from 'slugify'
 import { getEnv } from '../../Helpers/getEnv'
 import { showToast } from '../../Helpers/showToast'
 import { useParams } from 'react-router-dom'
-import { useFetch } from '../../hooks/useFetch'
-import { RouteCategoryDetails } from '../../Helpers/RouteNames'
+import { useFetch } from '../../Hooks/useFetch'
 import Loading from '../../Components/Loading'
 
 function EditCategory() {

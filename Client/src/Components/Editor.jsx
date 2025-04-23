@@ -3,7 +3,7 @@
  * https://ckeditor.com/ckeditor-5/builder/#installation/NoNgNARATAdArDADBSBGA7AFigZke1HEATjhyjhAA45VFE4CcCqpjsCLVd1qUIApgDsUiMMFRhJ0qWEQBdSMRxUARgIBmAiPKA==
  */
 
-import { useState, useEffect, useRef, useMemo } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import {
 	ClassicEditor,
@@ -79,22 +79,16 @@ import {
 
 import 'ckeditor5/ckeditor5.css';
 
-//import './App.css';
-
 /**
  * Create a free account with a trial: https://portal.ckeditor.com/checkout?plan=free
  */
 const LICENSE_KEY = 'GPL'; // or <YOUR_LICENSE_KEY>.
 
 export default function Editor({props}) {
-	const editorContainerRef = useRef(null);
-	const editorRef = useRef(null);
-	const editorWordCountRef = useRef(null);
 	const [isLayoutReady, setIsLayoutReady] = useState(false);
 
 	useEffect(() => {
 		setIsLayoutReady(true);
-
 		return () => setIsLayoutReady(false);
 	}, []);
 
@@ -333,9 +327,6 @@ export default function Editor({props}) {
 						reversed: true
 					}
 				},
-				menuBar: {
-					isVisible: true
-				},
 				placeholder: 'Type or paste your content here!',
 				table: {
 					contentToolbar: ['tableColumn', 'tableRow', 'mergeTableCells', 'tableProperties', 'tableCellProperties']
@@ -346,33 +337,19 @@ export default function Editor({props}) {
 
 	return (
 		<div className="main-container">
-			<div
-				className="editor-container editor-container_classic-editor editor-container_include-block-toolbar editor-container_include-word-count editor-container_include-fullscreen"
-				ref={editorContainerRef}
-			>
+			<div className="editor-container editor-container_classic-editor">
 				<div className="editor-container__editor">
-					<div ref={editorRef}>
-						{editorConfig && (
-							<CKEditor
+					{editorConfig && (
+						<CKEditor
 							onChange={props.onChange}
-								onReady={editor => {
-									const wordCount = editor.plugins.get('WordCount');
-									editorWordCountRef.current.appendChild(wordCount.wordCountContainer);
-
-									editorMenuBarRef.current.appendChild(editor.ui.view.menuBarView.element);
-								}}
-								onAfterDestroy={() => {
-									Array.from(editorWordCountRef.current.children).forEach(child => child.remove());
-
-									Array.from(editorMenuBarRef.current.children).forEach(child => child.remove());
-								}}
-								editor={ClassicEditor}
-								config={editorConfig}
-							/>
-						)}
-					</div>
+							onReady={editor => {
+								
+							}}
+							editor={ClassicEditor}
+							config={editorConfig}
+						/>
+					)}
 				</div>
-				{/* <div className="editor_container__word-count" ref={editorWordCountRef}></div> */}
 			</div>
 		</div>
 	);

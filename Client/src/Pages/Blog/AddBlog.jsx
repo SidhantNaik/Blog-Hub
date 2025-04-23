@@ -8,7 +8,7 @@ import Button from "../../Components/Button";
 import slugify from "slugify";
 import { getEnv } from "../../Helpers/getEnv";
 import { showToast } from "../../Helpers/showToast";
-import { useFetch } from "../../Hooks/useFetch";
+import { useFetch } from '../../hooks/useFetch'
 import { useNavigate } from "react-router-dom";
 import Dropzone from "react-dropzone";
 import { useState } from "react";
@@ -19,16 +19,18 @@ import {
   SelectOption,
   SelectLabel,
 } from "../../Components/SelectComponents";
+import { RouteBlog } from "../../Helpers/RouteNames";
 
 function AddBlog() {
   const [filePreview, setPreview] = useState();
   const [file, setFile] = useState();
   const user = useSelector((state => state.user));
+  const navigate = useNavigate();
 
   const {
     data: CategoryData,
-    loading,
-    error,
+    // loading,
+    // error,
   } = useFetch(`${getEnv("VITE_API_BASE_URL")}/category/all-category`, {
     method: "GET",
     credentials: "include",
@@ -76,18 +78,21 @@ function AddBlog() {
 
   async function onSubmit(values) {
     try {
-     
-      const newVlaues = { ...values, author: user.user._id };
+      // Create the blog data object with author ID
+      const blogData = { ...values, author: user.user._id };
+      
+      // Create form data and append blog data
       const formData = new FormData();
       if (file) {
         formData.append("file", file);
       }
-      formData.append("data", JSON.stringify(values));
+      // Send blogData instead of values
+      formData.append("data", JSON.stringify(blogData));
 
       const response = await fetch(
-        `${getEnv("VITE_API_BASE_URL")}/user/update-user/${user.user._id}`,
+        `${getEnv("VITE_API_BASE_URL")}/blog/add`,
         {
-          method: "put",
+          method: "post",
           credentials: "include",
           body: formData,
         }
@@ -99,8 +104,11 @@ function AddBlog() {
         return showToast("error", data.message);
       }
 
-      dispatch(setUser(data.user));
+      reset();
+      setFile(null);
+      setPreview(null);
       showToast("success", data.message);
+      navigate(RouteBlog);
     } catch (error) {
       showToast("error", error.message);
     }
@@ -155,7 +163,7 @@ function AddBlog() {
                 placeholder="Enter your slug"
                 type="slug"
                 {...register("slug")}
-                error={errors.email?.message}
+                error={errors.slug?.message}
               />
             </div>
             <div>
