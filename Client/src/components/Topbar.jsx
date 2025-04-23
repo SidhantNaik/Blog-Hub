@@ -4,7 +4,7 @@ import { Button } from "./ui/button";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import { IoLogInOutline } from "react-icons/io5";
 import SearchBox from "./SearchBox";
-import { RouteIndex, RouteSignIn } from "@/helpers/RouteName";
+import { RouteIndex, RouteProfile, RouteSignIn } from "@/helpers/RouteName";
 import { useDispatch, useSelector } from "react-redux";
 import {
   DropdownMenu,
@@ -88,7 +88,7 @@ const Topbar = () => {
               </DropdownMenuLabel>
               <DropdownMenuSeparator />
               <DropdownMenuItem asChild className="cursor-pointer">
-                <Link to="">
+                <Link to={RouteProfile}>
                   <FaRegUser />
                   Profile
                 </Link>
