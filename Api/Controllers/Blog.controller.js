@@ -52,6 +52,16 @@ export const addBlog = async (req, res, next) => {
 
 export const editBlog = async (req, res, next) => {
   try {
+    const { blogid } = req.params
+    const blog = await Blog.findById(blogid).populate("category", "name")
+
+    if (!blog) {
+      return next(handleError(404, "Blog not found"))
+    }
+
+    res.status(200).json({
+      blog
+    });
   } catch (error) {
     return next(handleError(500, error.message));
   }
@@ -59,6 +69,43 @@ export const editBlog = async (req, res, next) => {
 
 export const updateBlog = async (req, res, next) => {
   try {
+    const { blogid } = req.params
+    const data = JSON.parse(req.body.data);
+
+    const blog = await Blog.findById(blogid)
+
+    blog.category = data.category;
+    blog.title = data.title;
+    blog.slug = data.slug;
+    blog.blogContent = encode(data.blogContent);
+
+    let featureImage = blog.featureImage;
+
+    if (req.file) {
+      // Upload an image
+      const uploadResult = await cloudinary.uploader
+        .upload(
+          req.file.path,
+          { folder: 'Blog-Hub', resource_type: 'auto' }
+        );
+
+      if (!uploadResult) {
+        return next(handleError(500, "Failed to upload image"));
+      }
+
+      featureImage = uploadResult.secure_url;
+     }// else {
+    //   return next(handleError(400, "Feature image is required"));
+    // }
+
+blog.featureImage = featureImage;
+    await blog.save();
+
+    res.status(201).json({
+      status: "success",
+      message: "Blog updated successfully",
+    });
+
   } catch (error) {
     return next(handleError(500, error.message));
   }
