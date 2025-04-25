@@ -14,7 +14,7 @@ import Dropzone from "react-dropzone";
 import Loading from '../../Components/Loading'
 import { useState } from "react";
 import Editor from "../../Components/Editor";
-import { useSelector } from "react-redux";
+//import { useSelector } from "react-redux";
 import {
     Select,
     SelectOption,
@@ -27,7 +27,7 @@ function EditBlog() {
 
     const [filePreview, setPreview] = useState();
     const [file, setFile] = useState();
-    const user = useSelector((state => state.user));
+    //const user = useSelector((state => state.user));
     const navigate = useNavigate();
     const { blogid } = useParams()
 
