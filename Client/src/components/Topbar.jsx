@@ -48,10 +48,7 @@ const Topbar = () => {
       dispath(removeUser());
 
       showToast("success", data.message || "Logout successful!.");
-
-      setTimeout(() => {
-        Navigate(RouteIndex);
-      }, 1500);
+      navigate(RouteIndex);
     } catch (error) {
       showToast("error", error.message || "Something went wrong.");
     }
@@ -77,8 +74,8 @@ const Topbar = () => {
           <DropdownMenu>
             <DropdownMenuTrigger>
               <Avatar>
-                <AvatarImage src={user.user.avatar || userIcon} />
-                <AvatarFallback>CN</AvatarFallback>
+                  <AvatarImage src={user.user.avatar || userIcon} />
+                  <AvatarFallback><img src={userIcon} /></AvatarFallback>
               </Avatar>
             </DropdownMenuTrigger>
             <DropdownMenuContent>
