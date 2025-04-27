@@ -7,7 +7,7 @@ function SideBar() {
   const [showCategories, setShowCategories] = useState(false);
 
   return (
-    <div className="border border-gray-400  shadow-md md:shadow-xl md:h-full md:sticky md:top-20">
+    <div className="border-r border-gray-400 h-full bg-white">
       {/* Desktop Sidebar */}
       <div className="hidden md:block p-5">
         <SideBarOptionsGroup />

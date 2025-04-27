@@ -1,9 +1,9 @@
 import React from 'react'
-import FormatDate from '../Helpers/FormatDate'
 import { getEnv } from '../Helpers/getEnv'
 import { useFetch } from '../Hooks/useFetch'
 import Avatar from '../Layout/UserProfile/Avatar'
 import Loading from './Loading'
+import { formatDate } from '../utils/formatDate'
 
 
 function CommentList({props}) {
@@ -34,7 +34,7 @@ function CommentList({props}) {
                         <div className="flex items-center space-x-2">
                             <span className="font-medium text-gray-800">{comment.author.name}</span>
                             <span className="text-sm text-gray-500">
-                                {FormatDate(comment?.createdAt)}
+                                {formatDate(comment?.createdAt)}
                             </span>
                         </div>
                         <p className="mt-1 text-gray-600">{comment.comment}</p>

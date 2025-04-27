@@ -1,4 +1,5 @@
 import React from "react";
+import { formatDate } from '../../utils/formatDate';
 import Table from "../../Components/TableComponents/Table";
 import TableRow from "../../Components/TableComponents/TableRow";
 import TableCell from "../../Components/TableComponents/TableCell";
@@ -89,11 +90,7 @@ const BlogDetails = () => {
                 <TableCell className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{blog?.title}</TableCell>
                 <TableCell className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{blog?.slug}</TableCell>
                 <TableCell className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                  {new Date(blog?.createdAt).toLocaleDateString('en-GB', {
-                    day: '2-digit',
-                    month: '2-digit',
-                    year: 'numeric'
-                  })}
+                  {formatDate(blog?.createdAt)}
                 </TableCell>
                 <TableCell className="px-6 py-4 whitespace-nowrap text-sm font-medium space-x-3">
                   <button className="text-blue-600 hover:text-blue-900 mx-1 cursor-pointer">
@@ -107,7 +104,7 @@ const BlogDetails = () => {
                 </TableCell>
               </TableRow>
             ))}
-           
+
             </tbody>
           </Table>
         </div>
