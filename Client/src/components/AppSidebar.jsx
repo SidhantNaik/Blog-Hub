@@ -18,6 +18,7 @@ import { TfiCommentAlt } from "react-icons/tfi";
 import { FaRegUser } from "react-icons/fa";
 import { GoDot } from "react-icons/go";
 import Footer from "./Footer";
+import { RouteCategoryDetails } from "@/helpers/RouteName";
 
 const AppSidebar = () => {
   return (
@@ -38,7 +39,7 @@ const AppSidebar = () => {
             <SidebarMenuItem>
               <SidebarMenuButton>
                 <BiCategory />
-                <Link to="">Categories</Link>
+                <Link to={RouteCategoryDetails}>Categories</Link>
               </SidebarMenuButton>
             </SidebarMenuItem>
 

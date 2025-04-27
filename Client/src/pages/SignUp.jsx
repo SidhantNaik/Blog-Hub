@@ -1,3 +1,4 @@
+import React from "react";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -7,7 +8,6 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import React from "react";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -59,7 +59,6 @@ const SignUp = () => {
 
       if (!response.ok) {
         return showToast("error", data.message || "Registration failed.");
-        
       }
 
       showToast("success", data.message || "Registration successful!.");
@@ -85,7 +84,7 @@ const SignUp = () => {
             <span className="absolute bg-white text-sm">Or</span>
           </div>
         </div>
-        
+
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
             <div className="mb-3">

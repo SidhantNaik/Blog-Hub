@@ -5,6 +5,7 @@ import cors from "cors";
 import mongoose from "mongoose";
 import AuthRoute from "./routes/Auth.route.js";
 import UserRoute from "./routes/User.route.js";
+import categoryRoute from "./routes/Category.route.js";
 
 dotenv.config();
 
@@ -23,6 +24,7 @@ app.use(
 //route Setup
 app.use('/api/auth',AuthRoute)
 app.use("/api/user", UserRoute);
+app.use("/api/category", categoryRoute);
 
 
 
