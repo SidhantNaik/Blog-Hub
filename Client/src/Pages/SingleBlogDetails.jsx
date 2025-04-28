@@ -8,11 +8,10 @@ import { decode } from 'entities'
 import Comment from '../Components/Comment'
 import CommentList from '../Components/CommentList'
 import { formatDate } from '../utils/formatDate';
-
+import RelatedBlog from '../Components/RelatedBlog'
 
 function SingleBlogDetails() {
-
-    const { blog } = useParams()
+    const { blog, category } = useParams()
 
     const { data, loading, error } = useFetch(`${getEnv("VITE_API_BASE_URL")}/blog/get-blog/${blog}`, {
         method: "GET",
@@ -22,14 +21,13 @@ function SingleBlogDetails() {
     if (loading) return <Loading />;
 
     return (
-        <div className="container mx-auto px-4 md:px-8 py-10 shadow-2xl rounded-3xl max-w-5xl border border-gray-200 bg-white mb-8">
-            {data && data.blog &&
-                <>
-                    <div className="mb-12">
+        <div className="container mx-auto px-4 md:px-8 py-10 flex flex-col lg:flex-row gap-8">
+            <div className="flex-1 shadow-2xl rounded-3xl border border-gray-200 bg-white p-8">
+                {data && data.blog &&
+                    <div>
                         <h2 className="font-bold text-4xl md:text-5xl text-gray-800 leading-tight mb-8 hover:text-gray-700 transition-colors duration-300">
                             {data.blog.title}
                         </h2>
-                        
                         <div className="flex items-center justify-between mb-10 border-b border-gray-200 pb-8">
                             <div className="flex items-center space-x-4 hover:transform hover:scale-105 transition-transform duration-300">
                                 <Avatar src={data.blog.author.avatar} alt="User Avatar" className="w-14 h-14 rounded-full ring-4 ring-blue-100 shadow-md" />
@@ -44,30 +42,32 @@ function SingleBlogDetails() {
                                 </div>
                             </div>
                         </div>
-
                         <div className="rounded-2xl overflow-hidden shadow-2xl mb-12 transform hover:scale-[1.02] transition-transform duration-500">
-                            <img 
+                            <img
                                 src={data.blog.featureImage}
-                                alt="Featured Image" 
+                                alt="Featured Image"
                                 className="w-full h-[400px] md:h-[500px] object-cover"
                             />
                         </div>
-
-                        <article 
-                            dangerouslySetInnerHTML={{ __html: decode(data.blog.blogContent)||'' }} 
+                        <article
+                            dangerouslySetInnerHTML={{ __html: decode(data.blog.blogContent) || '' }}
                             className="prose prose-lg max-w-none text-gray-700 leading-relaxed prose-headings:text-gray-900 prose-a:text-blue-600 prose-strong:text-gray-900 prose-img:rounded-lg prose-img:shadow-lg"
                         >
                         </article>
-
                         <div>
-                            <Comment props={{blogid:data.blog._id}}/>
+                            <Comment props={{ blogid: data.blog._id }} />
                         </div>
                         <div>
-                            <CommentList props={{blogid:data.blog._id} }/>
+                            <CommentList props={{ blogid: data.blog._id }} />
                         </div>
                     </div>
-                </>
-            }
+                }
+            </div>
+            <div className="w-full lg:w-1/3 shadow-2xl rounded-3xl border border-gray-200 bg-white p-8">
+                <div className="flex flex-row gap-4 overflow-x-auto">
+                    <RelatedBlog props={{ category: category }} />
+                </div>
+            </div>
         </div>
     )
 }
