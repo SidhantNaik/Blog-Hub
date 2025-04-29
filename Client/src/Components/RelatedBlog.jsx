@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { getEnv } from '../Helpers/getEnv';
 import { useFetch } from '../Hooks/useFetch';
 import { RouteBlogDetails } from '../Helpers/RouteNames';
+import Loading from '../Components/Loading';
 
 function RelatedBlog({ props }) {
   const { data, loading, error } = useFetch(`${getEnv("VITE_API_BASE_URL")}/blog/get-related-blog/${props.category}`, {
@@ -10,7 +11,7 @@ function RelatedBlog({ props }) {
     credentials: "include",
   });
 
-  if (loading) return <div>Loading...</div>;
+  if (loading) return <span className='px-15' ><Loading  /></span>;
   if (error) return <div>Error loading related blogs</div>;
 
   return (
@@ -23,7 +24,7 @@ function RelatedBlog({ props }) {
             to={RouteBlogDetails(blog.category.slug, blog.slug)}
             className="hover:shadow-lg transition-shadow duration-300"
           >
-            <div className="flex gap-2 items-center border-gray-400 border p-2 rounded-lg">
+            <div className="flex gap-2 items-center border-gray-300 border p-1 rounded-lg ">
               <img 
                 src={blog.featureImage} 
                 alt={blog.title} 

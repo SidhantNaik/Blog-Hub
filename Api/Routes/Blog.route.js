@@ -1,5 +1,5 @@
 import express from 'express'
-import { addBlog, editBlog, updateBlog,deleteBlog, showBlog, getBlog, getRelatedBlog } from '../Controllers/Blog.controller.js'
+import { addBlog, editBlog, updateBlog,deleteBlog, showBlog, getBlog, getRelatedBlog, getBlogByCategory } from '../Controllers/Blog.controller.js'
 import upload from '../Config/multer.js'
 
 const BlogRoute= express.Router()
@@ -11,5 +11,6 @@ BlogRoute.delete('/delete/:blogid', deleteBlog);
 BlogRoute.get('/get-all', showBlog)
 BlogRoute.get('/get-blog/:slug',getBlog)
 BlogRoute.get('/get-related-blog/:category',getRelatedBlog)
+BlogRoute.get('/get-blog-by-category/:category',getBlogByCategory)
 
 export default BlogRoute

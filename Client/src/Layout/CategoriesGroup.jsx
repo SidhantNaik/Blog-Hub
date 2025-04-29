@@ -2,6 +2,8 @@ import React from 'react'
 import Categories from './Categories'
 import { useFetch } from '../hooks/useFetch'
 import { getEnv } from '../Helpers/getEnv'
+import { Link } from 'react-router-dom';
+import { RouteBlogByCategory } from '../Helpers/RouteNames';
 
 function CategoriesGroup() {
 
@@ -12,11 +14,12 @@ function CategoriesGroup() {
 
   return (
     <>
-    {CategoryData?.categories?.map((category) => (
-      <Categories key={category._id} title={category.name} id={category._id} /> 
-    ))}
+      {CategoryData?.categories?.map((category) => (
+        <Link key={category._id} to={RouteBlogByCategory(category.slug)} >
+          <Categories title={category.name} id={category._id} />
+        </Link>
+      ))}
     </>
-
   )
 }
 
