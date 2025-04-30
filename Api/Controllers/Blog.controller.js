@@ -214,3 +214,28 @@ export const getBlogByCategory = async (req, res, next) => {
     return next(handleError(500, error.message));
   }
 };
+
+
+export const search = async (req, res, next) => {
+  try {
+    const { q } = req.query;
+    if (!q) {
+      return next(handleError(400, "Search query is required"));
+    }
+
+    const blog = await Blog.find({ 
+      title: { $regex: q, $options: 'i' }
+    })
+    .populate("author", "name avatar role")
+    .populate("category", "name slug")
+    .lean()
+    .exec();
+
+    res.status(200).json({
+      success: true,
+      blog,
+    });
+  } catch (error) {
+    next(handleError(500, error.message));
+  }
+};

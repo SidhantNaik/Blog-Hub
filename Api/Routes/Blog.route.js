@@ -1,5 +1,5 @@
 import express from 'express'
-import { addBlog, editBlog, updateBlog,deleteBlog, showBlog, getBlog, getRelatedBlog, getBlogByCategory } from '../Controllers/Blog.controller.js'
+import { addBlog, editBlog, updateBlog,deleteBlog, showBlog, getBlog, getRelatedBlog, getBlogByCategory, search } from '../Controllers/Blog.controller.js'
 import upload from '../Config/multer.js'
 
 const BlogRoute= express.Router()
@@ -12,5 +12,6 @@ BlogRoute.get('/get-all', showBlog)
 BlogRoute.get('/get-blog/:slug',getBlog)
 BlogRoute.get('/get-related-blog/:category',getRelatedBlog)
 BlogRoute.get('/get-blog-by-category/:category',getBlogByCategory)
+BlogRoute.get('/search',search) // Added forward slash
 
 export default BlogRoute
