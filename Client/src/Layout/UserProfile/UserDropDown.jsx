@@ -7,7 +7,7 @@ import { useDispatch } from 'react-redux'
 import { getEnv } from '../../Helpers/getEnv'
 import { showToast } from '../../Helpers/showToast'
 import { removeUser } from '../../redux/user/user.slice';
-import { RouteIndex, RouteProfile } from '../../Helpers/RouteNames'
+import { RouteBlogAdd, RouteIndex, RouteProfile } from '../../Helpers/RouteNames'
 
 const UserDropDown = forwardRef(({ avatar, name, email, onClose }, ref) => {
   const dispatch = useDispatch(); // Fixed typo: dispath -> dispatch
@@ -62,7 +62,7 @@ const UserDropDown = forwardRef(({ avatar, name, email, onClose }, ref) => {
         </Link>
 
         <Link
-          to="/create-blog"
+          to={RouteBlogAdd}
           onClick={onClose} // Close dropdown when navigating
           className="flex items-center gap-3 px-4 py-2 hover:bg-gray-100 transition-colors"
         >

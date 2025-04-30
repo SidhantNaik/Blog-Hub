@@ -51,3 +51,5 @@ export const RouteSearch = (q) => {
         return `/search`
     
 }
+
+export const RouteCommentsDetails = '/comments'

@@ -47,3 +47,39 @@ export const getComments = async (req, res, next)=>{
         next(handleError(500,error.message))
     }
 }
+
+
+export const getAllComments = async (req, res, next)=>{
+    try {
+        const comments = await Comment.find()
+            .populate('blogid', 'title')  
+            .populate('author', 'name')  
+            .sort({ createdAt: -1 })     
+            .lean()
+            .exec();
+
+        res.status(200).json({
+            success: true,
+            comments 
+        })
+            
+    } catch(error) {
+        next(handleError(500,error.message))
+    }
+}
+
+export const deleteComment = async (req, res, next)=>{
+    try {
+        const {commentid} = req.params
+
+        await Comment.findByIdAndDelete(commentid)
+
+        res.status(200).json({
+            success: true,
+            message: "Comment deleted successfully"
+        })
+            
+    } catch(error) {
+        next(handleError(500,error.message))
+    }
+}
