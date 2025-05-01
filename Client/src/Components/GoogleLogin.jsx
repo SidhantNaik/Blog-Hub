@@ -41,7 +41,7 @@ function GoogleLogin() {
                 return showToast('error', data.message)
             }
 
-            dispath(setUser(data.user))
+            dispath(setUser({ ...data.user, isLoggedIn: true }))  // Add isLoggedIn flag
             navigate(RouteIndex)
             showToast('success', data.message)
 

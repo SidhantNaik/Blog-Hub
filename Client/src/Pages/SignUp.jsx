@@ -3,17 +3,18 @@ import LableText from '../Components/LableText'
 import InputText from '../Components/InputText'
 import Button from '../Components/Button'
 import { Link, useNavigate } from 'react-router-dom'
-import { RouteSignIn } from '../Helpers/RouteNames'
+import { RouteSignIn, RouteIndex } from '../Helpers/RouteNames'
 import GoogleLogin from '../Components/GoogleLogin'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { getEnv } from '../Helpers/getEnv'
 import { showToast } from '../Helpers/showToast'
+import { FiArrowLeft } from 'react-icons/fi'
 
 const SignUp = () => {
 
-  const navigate=useNavigate()
+  const navigate = useNavigate()
 
   const formSchema = z.object({
     name: z.string().min(2, "Name must be at least 2 characters"),
@@ -41,35 +42,40 @@ const SignUp = () => {
 
   async function onSubmit(values) {
     try {
-        const response=await fetch(`${getEnv('VITE_API_BASE_URL')}/auth/register`,{
-          method:'post',
-          headers:{'Content-type':'application/json'},
-          body:JSON.stringify(values)
-        })
+      const response = await fetch(`${getEnv('VITE_API_BASE_URL')}/auth/register`, {
+        method: 'post',
+        headers: { 'Content-type': 'application/json' },
+        body: JSON.stringify(values)
+      })
 
-        const data = await response.json()
-        if(!response.ok)
-        {
-           return showToast('error',data.message)
-        }
+      const data = await response.json()
+      if (!response.ok) {
+        return showToast('error', data.message)
+      }
 
-        navigate(RouteSignIn)
-        showToast('success',data.message)
+      navigate(RouteSignIn)
+      showToast('success', data.message)
 
     }
     catch (error) {
-      showToast('error',error.message)
+      showToast('error', error.message)
     }
   }
 
   return (
-    <div className="flex justify-center items-center min-h-screen p-4">
+    <div className="flex justify-center items-center min-h-screen p-4 bg-gray-50">
       <form className="w-full max-w-md bg-white rounded-lg shadow-lg p-6 sm:p-8" onSubmit={handleSubmit(onSubmit)}>
+        <button
+          type="button"
+          onClick={() => navigate(RouteIndex)}
+          className="mb-4 flex items-center text-purple-600 border p-3 rounded-2xl hover:shadow-lg hover:scale-105 transition-transform duration-200 ease-in-out"
+        >
+          <FiArrowLeft className="h-5 w-5 mr-1" />
+          Back
+        </button>
         <h2 className="text-center mb-6 text-2xl font-bold text-purple-700">Create Account</h2>
 
-        <GoogleLogin/>
-
-        
+        <GoogleLogin />
 
         <div className="space-y-4">
           <div>

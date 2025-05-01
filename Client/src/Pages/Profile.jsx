@@ -115,7 +115,6 @@ function Profile() {
                                         alt={user.user?.name || "Profile Photo"}
                                         className="w-24 h-24 rounded-full mx-auto mb-4 group-hover:opacity-30 object-cover border-2 border-purple-200"
                                         onError={(e) => {
-                                            console.log('Image failed to load, using default');
                                             e.target.src = defaultAvatar;
                                         }}
                                     />

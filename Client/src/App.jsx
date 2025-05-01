@@ -24,7 +24,6 @@ import AddCategory from "./Pages/Category/AddCategory";
 import CategoryDetails from "./Pages/Category/CategoryDetails";
 import EditCategory from "./Pages/Category/EditCategory";
 import { RouteEditCategory } from "./Helpers/RouteNames";
-import Categories from "./Layout/Categories";
 import AddBlog from "./Pages/Blog/AddBlog";
 import BlogDetails from "./Pages/Blog/BlogDetails";
 import EditBlog from "./Pages/Blog/EditBlog";
@@ -33,6 +32,8 @@ import BlogByCategory from "./Pages/Blog/BlogByCategory";
 import SearchResult from "./Pages/SearchResult";
 import Comments from "./Pages/Comments";
 import User from "./Pages/User";
+import AuthUserProtection from "./Components/AuthUserProtection";
+import OnlyAdminAllowed from "./Components/OnlyAdminAllowed";
 
 function App() {
   return (
@@ -43,20 +44,39 @@ function App() {
 
           <Route path={RouteProfile} element={<Profile />} />
 
-          {/* Blog Categories */}
-          <Route path={RouteAddCategory} element={<AddCategory />} />
-          <Route path={RouteCategoryDetails} element={<CategoryDetails />} />
-          <Route path={RouteEditCategory()} element={<EditCategory />} />
 
-          {/* Blogs */}
-          <Route path={RouteBlogAdd} element={<AddBlog />} />
-          <Route path={RouteBlog} element={<BlogDetails />} />
-          <Route path={RouteBlogEdit()} element={<EditBlog />} />
+
+
           <Route path={RouteBlogDetails()} element={<SingleBlogDetails />} />
           <Route path={RouteBlogByCategory()} element={<BlogByCategory />} />
           <Route path={RouteSearch()} element={<SearchResult />} />
-          <Route path={RouteCommentsDetails} element={<Comments />} />
-          <Route path={RouteUser} element={<User />} />
+
+
+          <Route element={<AuthUserProtection />} >
+            {/* Blogs */}
+            <Route path={RouteBlogAdd} element={<AddBlog />} />
+            <Route path={RouteBlog} element={<BlogDetails />} />
+            <Route path={RouteBlogEdit()} element={<EditBlog />} />
+
+
+            {/* Comments */}
+            <Route path={RouteCommentsDetails} element={<Comments />} />
+
+
+          </Route>
+
+
+          <Route element={<OnlyAdminAllowed />} >
+
+            {/* Blog Categories */}
+            <Route path={RouteAddCategory} element={<AddCategory />} />
+            <Route path={RouteCategoryDetails} element={<CategoryDetails />} />
+            <Route path={RouteEditCategory()} element={<EditCategory />} />
+
+            {/* Users */}
+            <Route path={RouteUser} element={<User />} />
+
+          </Route>
 
         </Route>
 

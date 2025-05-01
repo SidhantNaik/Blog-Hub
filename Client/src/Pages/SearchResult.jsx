@@ -15,12 +15,7 @@ function SearchResult() {
     });
   
     if(loading) return <Loading/>
-    // if(error) {
-    //   console.error('Search error:', error);
-    //   return <div className="text-center text-red-600 text-xl py-12">Error loading search results</div>
-    // }
-
-    console.log('Search response:', blogData); 
+   
 
     return (
     <div>

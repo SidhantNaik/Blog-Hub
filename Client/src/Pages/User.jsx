@@ -66,7 +66,7 @@ const User = () => {
                                     <TableCell className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">          
                                           <Avatar src={user.avatar} alt={user.name} className="w-10 h-10 rounded-full" />
                                     </TableCell>
-                                    {console.log(user.createdAt)}
+                                   
                                     <TableCell className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                                         {user.createdAt ? FormatDate(user.createdAt) : 'N/A'}
                                     </TableCell>
