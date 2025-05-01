@@ -53,3 +53,5 @@ export const RouteSearch = (q) => {
 }
 
 export const RouteCommentsDetails = '/comments'
+
+export const RouteUser = '/users'

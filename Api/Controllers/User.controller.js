@@ -73,3 +73,39 @@ export const updateUser = async (req, res, next) => {
         next(handleError(500, error.message))
     }
 }
+
+
+export const getAllUsers = async (req, res, next) => {
+    try {
+        const user = await User.find()
+            .select('-password')
+            .sort({ createdAt: -1 })
+            .lean()
+            .exec();
+
+        console.log('User data with timestamps:', user); // Add this to debug
+
+        res.status(200).json({
+            success: true,
+            user
+        })
+        
+    } catch (error) {
+        next(handleError(500, error.message))
+    }
+}
+
+export const deleteUser = async (req, res, next) => {
+    try {
+        const { userid } = req.params
+
+      await User.findByIdAndDelete(userid)
+        res.status(200).json({
+            success: true,
+            message: "User deleted successfully"
+        })
+            
+    } catch(error) {
+        next(handleError(500,error.message))
+    }
+}

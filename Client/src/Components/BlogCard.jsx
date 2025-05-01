@@ -10,7 +10,7 @@ function BlogCard({ props }) {
         <Link to={RouteBlogDetails(props.category.slug, props.slug)} className="block">
             <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-all duration-300">
                 <div className="p-4 flex items-center space-x-3">
-                    <div className="w-10 h-10">
+                    <div className="w-10 h-10 ">
                         <Avatar src={props.author.avatar} alt="User Avatar" />
                     </div>
                     <span className="font-medium text-gray-700">{props.author.name}</span>

@@ -37,7 +37,8 @@ const userSchema = new mongoose.Schema(
             type: String,
             trim: true
         }
-    }
+    },
+    { timestamps: true } // Add this line to enable timestamps
 )
 
 
