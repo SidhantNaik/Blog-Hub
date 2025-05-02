@@ -44,24 +44,22 @@ function App() {
 
           <Route path={RouteProfile} element={<Profile />} />
 
-
-
-
           <Route path={RouteBlogDetails()} element={<SingleBlogDetails />} />
           <Route path={RouteBlogByCategory()} element={<BlogByCategory />} />
           <Route path={RouteSearch()} element={<SearchResult />} />
 
-
           <Route element={<AuthUserProtection />} >
+            
+            
+            {/* Category */}
+            
             {/* Blogs */}
             <Route path={RouteBlogAdd} element={<AddBlog />} />
             <Route path={RouteBlog} element={<BlogDetails />} />
             <Route path={RouteBlogEdit()} element={<EditBlog />} />
 
-
             {/* Comments */}
             <Route path={RouteCommentsDetails} element={<Comments />} />
-
 
           </Route>
 
@@ -69,8 +67,8 @@ function App() {
           <Route element={<OnlyAdminAllowed />} >
 
             {/* Blog Categories */}
-            <Route path={RouteAddCategory} element={<AddCategory />} />
             <Route path={RouteCategoryDetails} element={<CategoryDetails />} />
+            <Route path={RouteAddCategory} element={<AddCategory />} />
             <Route path={RouteEditCategory()} element={<EditCategory />} />
 
             {/* Users */}

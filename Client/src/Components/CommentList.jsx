@@ -26,13 +26,13 @@ function CommentList({props}) {
             {data.comments.map((comment) => (
                 <div key={comment._id} className="flex space-x-4 p-4 bg-gray-50 rounded-lg">
                     <Avatar 
-                        src={comment.author.avatar} 
-                        alt={comment.author.name} 
+                        src={comment?.author?.avatar} 
+                        alt={comment?.author?.name} 
                         size="sm"
                     />
                     <div>
                         <div className="flex items-center space-x-2">
-                            <span className="font-medium text-gray-800">{comment.author.name}</span>
+                            <span className="font-medium text-gray-800">{comment?.author?.name}</span>
                             <span className="text-sm text-gray-500">
                                 {formatDate(comment?.createdAt)}
                             </span>
