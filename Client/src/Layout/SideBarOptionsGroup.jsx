@@ -4,7 +4,7 @@ import { BiSolidCategory } from "react-icons/bi";
 import { ImBlogger } from "react-icons/im";
 import { FaComments, FaUser } from "react-icons/fa";
 import { Link } from 'react-router-dom';
-import { RouteBlog, RouteCategoryDetails, RouteCommentsDetails, RouteIndex, RouteUser } from '../Helpers/RouteNames';
+import { RouteBlog, RouteCategoryDetails, RouteCommentsDetails, RouteIndex, RouteUser, RouteUserBlog } from '../Helpers/RouteNames';
 import { useSelector } from 'react-redux';
 
 
@@ -14,19 +14,18 @@ const textClass = "font-medium";
 
 
 function SideBarOptionsGroup() {
-  const user = useSelector((state) => state.user.user);
-
-  console.log(user)
+  const user = useSelector((state) => state.user);
+  
   return (
     <>
       <SideBarOption icon={<IoHome />} title="Home" to={RouteIndex} />
       
       {user?.isLoggedIn && 
      <>
-      <SideBarOption icon={<ImBlogger />} title="Blogs" to={RouteBlog} />
+      <SideBarOption icon={<ImBlogger />} title="Blogs" to={user.user.role==='admin'?RouteBlog:RouteUserBlog(user.user?._id)} />
       <SideBarOption icon={<FaComments />} title="Comments" to={RouteCommentsDetails} />
      
-     {user?.isLoggedIn && user?.role === 'admin' &&
+     {user?.role === 'admin' &&
       <>
       <SideBarOption icon={<BiSolidCategory />} title="Categories" to={RouteCategoryDetails} />
       <SideBarOption icon={<FaUser />} title="User" to={RouteUser} /></>

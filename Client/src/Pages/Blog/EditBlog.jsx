@@ -14,20 +14,20 @@ import Dropzone from "react-dropzone";
 import Loading from '../../Components/Loading'
 import { useState } from "react";
 import Editor from "../../Components/Editor";
-//import { useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import {
     Select,
     SelectOption,
     SelectLabel,
 } from "../../Components/SelectComponents";
-import { RouteBlog } from "../../Helpers/RouteNames";
+import { RouteUserBlog } from "../../Helpers/RouteNames";
 import { decode } from "entities";
 
 function EditBlog() {
 
     const [filePreview, setPreview] = useState();
     const [file, setFile] = useState();
-    //const user = useSelector((state => state.user));
+    const user = useSelector((state => state.user));
     const navigate = useNavigate();
     const { blogid } = useParams()
 
@@ -96,6 +96,7 @@ function EditBlog() {
         try {
             
 
+
             // Create form data and append blog data
             const formData = new FormData();
             if (file) {
@@ -123,7 +124,7 @@ function EditBlog() {
             setFile(null);
             setPreview(null);
             showToast("success", data.message);
-            navigate(RouteBlog);
+            navigate(RouteUserBlog(user.user?._id));
         } catch (error) {
             showToast("error", error.message);
         }

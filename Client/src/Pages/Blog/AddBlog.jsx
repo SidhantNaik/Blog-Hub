@@ -19,7 +19,7 @@ import {
   SelectOption,
   SelectLabel,
 } from "../../Components/SelectComponents";
-import { RouteBlog } from "../../Helpers/RouteNames";
+import { RouteUserBlog } from "../../Helpers/RouteNames";
 
 function AddBlog() {
   const [filePreview, setPreview] = useState();
@@ -108,7 +108,7 @@ function AddBlog() {
       setFile(null);
       setPreview(null);
       showToast("success", data.message);
-      navigate(RouteBlog);
+      navigate(RouteUserBlog(user.user?._id));
     } catch (error) {
       showToast("error", error.message);
     }

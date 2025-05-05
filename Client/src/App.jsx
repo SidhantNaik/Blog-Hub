@@ -15,6 +15,7 @@ import {
   RouteSignIn,
   RouteSignUp,
   RouteUser,
+  RouteUserBlog,
 } from "./Helpers/RouteNames";
 import Index from "./Pages/Index";
 import SignIn from "./Pages/SignIn";
@@ -34,6 +35,7 @@ import Comments from "./Pages/Comments";
 import User from "./Pages/User";
 import AuthUserProtection from "./Components/AuthUserProtection";
 import OnlyAdminAllowed from "./Components/OnlyAdminAllowed";
+import GetUserBlogs from "./Pages/GetUserBlogs";
 
 function App() {
   return (
@@ -57,6 +59,7 @@ function App() {
             <Route path={RouteBlogAdd} element={<AddBlog />} />
             <Route path={RouteBlog} element={<BlogDetails />} />
             <Route path={RouteBlogEdit()} element={<EditBlog />} />
+            <Route path={RouteUserBlog()} element={<GetUserBlogs />} />
 
             {/* Comments */}
             <Route path={RouteCommentsDetails} element={<Comments />} />

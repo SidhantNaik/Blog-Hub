@@ -117,7 +117,7 @@ export const deleteBlog = async (req, res, next) => {
     const { blogid } = req.params
     await Blog.findByIdAndDelete(blogid)
 
-    resizeBy.status(200).json({
+    res.status(200).json({
       success: true,
       message: "Blog deleted successfuly."
     })
@@ -127,7 +127,7 @@ export const deleteBlog = async (req, res, next) => {
   }
 };
 
-export const showBlog = async (req, res, next) => {
+export const showAllBlog = async (req, res, next) => {
   try {
     const blog = await Blog.find()
       .populate("author", "name avatar role")
@@ -141,6 +141,42 @@ export const showBlog = async (req, res, next) => {
     });
 
   } catch (error) {
+    return next(handleError(500, error.message));
+  }
+};
+
+export const showUsersBlog = async (req, res, next) => {
+  try {
+    const { userid } = req.params;
+
+    if (!userid) {
+      return next(handleError(400, "User ID is required"));
+    }
+
+    console.log("User ID received:", userid); // Debugging log
+
+    const blogs = await Blog.find({ author: userid })
+      .populate("author", "name avatar role")
+      .populate("category", "name slug")
+      .sort({ createdAt: -1 })
+      .lean()
+      .exec();
+
+    console.log("Blogs fetched for user:", blogs); // Debugging log
+
+    if (!blogs || blogs.length === 0) {
+      return res.status(200).json({
+        success: true,
+        blogs: [],
+      });
+    }
+
+    res.status(200).json({
+      success: true,
+      blogs,
+    });
+  } catch (error) {
+    console.error("Error in showUsersBlog:", error.message);
     return next(handleError(500, error.message));
   }
 };
@@ -173,8 +209,8 @@ export const getRelatedBlog = async (req, res, next) => {
       return next(handleError(404, "Category not found"));
     }
 
-    const categoryId = categoryData._id; // Use the ObjectId of the category
-    const blogs = await Blog.find({ category: categoryId }) // Query using ObjectId
+    const categoryId = categoryData._id; 
+    const blogs = await Blog.find({ category: categoryId }) 
       .populate("author", "name avatar role")
       .populate("category", "name slug")
       .lean()

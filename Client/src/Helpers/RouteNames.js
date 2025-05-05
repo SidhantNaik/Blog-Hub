@@ -14,6 +14,7 @@ export const RouteEditCategory = (category_id) => {
 }
 
 export const RouteBlog = '/blogs'
+
 export const RouteBlogAdd = '/blog/add'
 
 export const RouteBlogEdit = (blogid) => {
@@ -55,3 +56,12 @@ export const RouteSearch = (q) => {
 export const RouteCommentsDetails = '/comments'
 
 export const RouteUser = '/users'
+
+export const RouteUserBlog = (userid) => {
+    if (userid) {
+        return `/blogs/user/${userid}`
+    }
+    else {
+        return `/blogs/user/:userid`
+    }
+}
