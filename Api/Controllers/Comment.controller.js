@@ -68,6 +68,38 @@ export const getAllComments = async (req, res, next)=>{
     }
 }
 
+
+export const getUserComments = async (req, res, next) => {
+    try {
+        const { userid } = req.params;
+
+        console.log("Fetching comments for userid:", userid); // Debug log
+
+        if (!userid) {
+            return res.status(400).json({
+                success: false,
+                message: "User ID is required"
+            });
+        }
+
+        const comments = await Comment.find({ author: userid })
+            .populate('blogid', 'title')  
+            .populate('author', 'name')  
+            .sort({ createdAt: -1 })
+            .lean()
+            .exec();
+
+        console.log("Fetched comments:", comments); // Debug log
+
+        res.status(200).json({
+            success: true,
+            comments
+        });
+    } catch (error) {
+        next(handleError(500, error.message));
+    }
+}
+
 export const deleteComment = async (req, res, next)=>{
     try {
         const {commentid} = req.params

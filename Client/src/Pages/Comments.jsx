@@ -21,9 +21,10 @@ const Comments = () => {
         
         if (response) {
           window.location.reload(); // Add this line to refresh the page
-          showToast('success', 'Category deleted successfully')
+          showToast('success', 'Comment deleted successfully')
+          showToast('success', 'Comment deleted successfully')
         } else {
-          showToast('error', 'Failed to delete category')
+          showToast('error', 'Failed to delete comment')
         }
     }
 
@@ -39,7 +40,7 @@ const Comments = () => {
     <div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <div className="mb-6 flex justify-between items-center">
-        <h1 className="text-3xl font-semibold text-gray-800">Category Details</h1>
+        <h1 className="text-3xl font-semibold text-gray-800">Comment Details</h1>
       </div>
 
       <div className="bg-white rounded-lg shadow-md overflow-hidden">

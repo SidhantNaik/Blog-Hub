@@ -16,6 +16,7 @@ import {
   RouteSignUp,
   RouteUser,
   RouteUserBlog,
+  RouteUserComments,
 } from "./Helpers/RouteNames";
 import Index from "./Pages/Index";
 import SignIn from "./Pages/SignIn";
@@ -36,6 +37,7 @@ import User from "./Pages/User";
 import AuthUserProtection from "./Components/AuthUserProtection";
 import OnlyAdminAllowed from "./Components/OnlyAdminAllowed";
 import GetUserBlogs from "./Pages/GetUserBlogs";
+import GetUserComments from "./Pages/GetUserComments";
 
 function App() {
   return (
@@ -49,25 +51,31 @@ function App() {
           <Route path={RouteBlogDetails()} element={<SingleBlogDetails />} />
           <Route path={RouteBlogByCategory()} element={<BlogByCategory />} />
           <Route path={RouteSearch()} element={<SearchResult />} />
+          <Route path={RouteBlog} element={<BlogDetails />} />
 
           <Route element={<AuthUserProtection />} >
-            
+
             
             {/* Category */}
-            
+
             {/* Blogs */}
             <Route path={RouteBlogAdd} element={<AddBlog />} />
-            <Route path={RouteBlog} element={<BlogDetails />} />
             <Route path={RouteBlogEdit()} element={<EditBlog />} />
             <Route path={RouteUserBlog()} element={<GetUserBlogs />} />
 
             {/* Comments */}
-            <Route path={RouteCommentsDetails} element={<Comments />} />
+            <Route path={RouteUserComments()} element={<GetUserComments />} />
 
           </Route>
 
-
           <Route element={<OnlyAdminAllowed />} >
+
+            {/* blogs */}
+            <Route path={RouteBlog} element={<BlogDetails />} />
+
+            {/* comments  */}
+            <Route path={RouteCommentsDetails} element={<Comments />} />
+
 
             {/* Blog Categories */}
             <Route path={RouteCategoryDetails} element={<CategoryDetails />} />
@@ -76,9 +84,7 @@ function App() {
 
             {/* Users */}
             <Route path={RouteUser} element={<User />} />
-
           </Route>
-
         </Route>
 
         <Route path={RouteSignIn} element={<SignIn />} />

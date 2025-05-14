@@ -4,7 +4,7 @@ import { BiSolidCategory } from "react-icons/bi";
 import { ImBlogger } from "react-icons/im";
 import { FaComments, FaUser } from "react-icons/fa";
 import { Link } from 'react-router-dom';
-import { RouteBlog, RouteCategoryDetails, RouteCommentsDetails, RouteIndex, RouteUser, RouteUserBlog } from '../Helpers/RouteNames';
+import { RouteBlog, RouteCategoryDetails, RouteCommentsDetails, RouteIndex, RouteUser, RouteUserBlog, RouteUserComments } from '../Helpers/RouteNames';
 import { useSelector } from 'react-redux';
 
 
@@ -22,10 +22,10 @@ function SideBarOptionsGroup() {
       
       {user?.isLoggedIn && 
      <>
-      <SideBarOption icon={<ImBlogger />} title="Blogs" to={user.user.role==='admin'?RouteBlog:RouteUserBlog(user.user?._id)} />
-      <SideBarOption icon={<FaComments />} title="Comments" to={RouteCommentsDetails} />
+      <SideBarOption icon={<ImBlogger />} title="Blogs" to={user.user.role === 'admin' ? RouteBlog : RouteUserBlog(user.user?._id)} />
+      <SideBarOption icon={<FaComments />} title="Comments" to={user.user.role === 'admin' ? RouteCommentsDetails : RouteUserComments(user.user?._id)} />
      
-     {user?.role === 'admin' &&
+     {user.user?.role === 'admin' &&
       <>
       <SideBarOption icon={<BiSolidCategory />} title="Categories" to={RouteCategoryDetails} />
       <SideBarOption icon={<FaUser />} title="User" to={RouteUser} /></>

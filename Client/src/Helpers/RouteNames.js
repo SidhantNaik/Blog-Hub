@@ -55,6 +55,15 @@ export const RouteSearch = (q) => {
 
 export const RouteCommentsDetails = '/comments'
 
+export const RouteUserComments = (userid) => {
+    if (userid) {
+        return `/comments/user/${userid}`
+    }
+    else {
+        return `/comments/user/:userid`
+    }
+}
+
 export const RouteUser = '/users'
 
 export const RouteUserBlog = (userid) => {
