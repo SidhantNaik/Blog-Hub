@@ -22,15 +22,15 @@ const User = () => {
         const response = deleteData(`${getEnv('VITE_API_BASE_URL')}/user/delete/${id}`)
 
         if (response) {
-            window.location.reload(); // Add this line to refresh the page
-            showToast('success', 'Category deleted successfully')
+            window.location.reload();
+            showToast('success', 'User deleted successfully')
         } else {
-            showToast('error', 'Failed to delete category')
+            showToast('error', 'Failed to delete user')
         }
     }
 
     if (error) {
-        console.error('Error fetching categories:', error);
+        console.error('Error fetching User:', error);
     }
 
     if (loading)
@@ -41,7 +41,7 @@ const User = () => {
         <div>
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
                 <div className="mb-6 flex justify-between items-center">
-                    <h1 className="text-3xl font-semibold text-gray-800">Category Details</h1>
+                    <h1 className="text-3xl font-semibold text-gray-800">User Details</h1>
                 </div>
 
 
