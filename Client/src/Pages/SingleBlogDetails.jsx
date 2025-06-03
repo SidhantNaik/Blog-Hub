@@ -1,4 +1,3 @@
-import React from 'react'
 import { useFetch } from '../Hooks/useFetch'
 import { getEnv } from '../Helpers/getEnv'
 import { useParams } from 'react-router-dom'

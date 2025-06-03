@@ -1,4 +1,3 @@
-import React from 'react'
 import { BiCategory } from "react-icons/bi"
 import { useParams } from 'react-router-dom'
 import {useFetch} from '../../Hooks/useFetch.js'

@@ -1,4 +1,3 @@
-import React from 'react';
 import { FaGithubAlt } from 'react-icons/fa';
 
 export default function WebSiteLogo() {

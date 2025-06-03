@@ -1,11 +1,7 @@
-import React from 'react'
 import Button from '../../Components/Button'
 import { Link } from 'react-router-dom'
 import { RouteAddCategory, RouteEditCategory } from '../../Helpers/RouteNames'
-import Table from '../../Components/TableComponents/Table'
-import TableRow from '../../Components/TableComponents/TableRow'
-import TableCell from '../../Components/TableComponents/TableCell'
-import ColumnHeading from '../../Components/TableComponents/ColumnHeading'
+import { Table, TableRow, TableCell, ColumnHeading } from '../../Components/TableComponent';
 import { useFetch } from '../../hooks/useFetch'
 import { getEnv } from '../../Helpers/getEnv'
 import { FaEdit } from "react-icons/fa";

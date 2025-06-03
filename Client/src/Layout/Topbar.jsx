@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import  { useState, useEffect, useRef } from 'react';
 import WebSiteLogo from './WebSiteLogo';
 import SearchBar from './SearchBar';
 import SignInButton from './SignInButton';

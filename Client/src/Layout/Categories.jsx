@@ -1,4 +1,3 @@
-import React from 'react'
 import {GoDotFill} from "react-icons/go"
 
 function Categories({title}) {

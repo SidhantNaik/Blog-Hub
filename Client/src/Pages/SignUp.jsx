@@ -1,4 +1,3 @@
-import React from 'react'
 import LableText from '../Components/LableText'
 import InputText from '../Components/InputText'
 import Button from '../Components/Button'

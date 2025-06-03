@@ -1,4 +1,3 @@
-import React from "react";
 
 // Select Component
 export const Select = ({ children, ...props }) => {

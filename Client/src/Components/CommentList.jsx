@@ -1,4 +1,3 @@
-import React from 'react'
 import { getEnv } from '../Helpers/getEnv'
 import { useFetch } from '../Hooks/useFetch'
 import Avatar from '../Layout/UserProfile/Avatar'

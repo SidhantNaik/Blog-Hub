@@ -1,4 +1,3 @@
-import React from 'react'
 import Avatar from '../Layout/UserProfile/Avatar'
 import { FaRegCalendar } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
@@ -8,7 +7,7 @@ import FormatDate from '../Helpers/FormatDate';
 function BlogCard({ props }) {
         return (
         <Link to={RouteBlogDetails(props.category.slug, props.slug)} className="block">
-            <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-all duration-300">
+            <div className="bg-purple-50 rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-all duration-300">
                 <div className="p-4 flex items-center space-x-3">
                     <div className="w-10 h-10 ">
                         <Avatar src={props.author.avatar} alt="User Avatar" />

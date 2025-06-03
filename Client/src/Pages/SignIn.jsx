@@ -1,4 +1,3 @@
-import React from 'react'
 import { FiArrowLeft } from 'react-icons/fi'
 import LableText from '../Components/LableText'
 import InputText from '../Components/InputText'

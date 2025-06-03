@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import  { useState } from 'react'
 import SideBarOptionsGroup from './SideBarOptionsGroup'
 import CategoriesGroup from './CategoriesGroup'
 import { IoChevronDown, IoChevronUp } from 'react-icons/io5'

@@ -1,9 +1,5 @@
-import React from "react";
 import { formatDate } from '../utils/formatDate';
-import Table from "../Components/TableComponents/Table";
-import TableRow from "../Components/TableComponents/TableRow";
-import TableCell from "../Components/TableComponents/TableCell";
-import ColumnHeading from "../Components/TableComponents/ColumnHeading";
+import { Table, TableRow, TableCell, ColumnHeading } from '../Components/TableComponent';
 import { Link } from "react-router-dom";
 import { RouteBlogAdd, RouteBlogEdit } from "../Helpers/RouteNames";
 import Button from "../Components/Button";
