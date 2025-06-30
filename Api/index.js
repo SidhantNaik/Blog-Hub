@@ -24,7 +24,7 @@ app.use(cors(
 ))
 
 
-// rooute setup
+// route setup
 app.use('/Api/auth',AuthRoute)
 app.use('/Api/user',UserRoute)
 app.use('/Api/category',CategoryRoute)
