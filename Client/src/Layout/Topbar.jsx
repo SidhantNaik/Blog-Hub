@@ -6,16 +6,26 @@ import { IoMenu, IoClose } from "react-icons/io5";
 import { useSelector } from 'react-redux';
 import UserDropDown from './UserProfile/UserDropDown';
 import Avatar from './UserProfile/Avatar';
+import { MdOutlineDarkMode } from "react-icons/md";
+import { IoSunnySharp } from "react-icons/io5";
+
+
 
 const Topbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [showUserDropdown, setShowUserDropdown] = useState(false);
+  const [isDarkMode, setIsDarkMode] = useState(true);
   const user = useSelector((state) => state.user);
   const dropdownRef = useRef(null);
   const avatarBtnRef = useRef(null);
 
   const toggleMenu = () => setMenuOpen(!menuOpen);
   const toggleUserDropdown = () => setShowUserDropdown(!showUserDropdown);
+
+  const handleToggleTheme = () => {
+    setIsDarkMode((prev) => !prev);
+    // Optionally: trigger theme change in your app here
+  };
 
   // Close dropdown when clicking outside
   useEffect(() => {
@@ -42,9 +52,22 @@ const Topbar = () => {
       <div className="flex justify-between items-center h-16 md:h-20 px-4 lg:px-6">
         <WebSiteLogo />
 
-        {/* SearchBar - visible on desktop, hidden on mobile */}
         <div className="hidden md:block flex-grow mx-4">
           <SearchBar />
+        </div>
+
+        <div className="items-center bg-white">
+          <button
+            onClick={handleToggleTheme}
+            className="relative w-15 h-15   "
+            aria-label="Toggle dark/light mode"
+          >
+            {isDarkMode ? (
+              <MdOutlineDarkMode/>
+            ) : (
+              <IoSunnySharp/>
+            )}
+          </button>
         </div>
 
         {/* User controls - visible on desktop */}

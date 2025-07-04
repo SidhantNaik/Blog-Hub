@@ -20,7 +20,7 @@ export default function SearchBar() {
 
   return (
     <form className="flex items-center w-full max-w-md" onSubmit={handleSubmit}>
-      <div className="relative w-full">
+      <div className="relative w-full ">
         <input
           name='q'
           onChange={getInput}
