@@ -14,7 +14,8 @@ import { IoSunnySharp } from "react-icons/io5";
 const Topbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [showUserDropdown, setShowUserDropdown] = useState(false);
-  const [isDarkMode, setIsDarkMode] = useState(true);
+  const[theme,setTheme] = useState('bg-white');
+  const [isDarkMode,setIsDarkMode ]= useState(false);
   const user = useSelector((state) => state.user);
   const dropdownRef = useRef(null);
   const avatarBtnRef = useRef(null);
@@ -22,9 +23,14 @@ const Topbar = () => {
   const toggleMenu = () => setMenuOpen(!menuOpen);
   const toggleUserDropdown = () => setShowUserDropdown(!showUserDropdown);
 
-  const handleToggleTheme = () => {
-    setIsDarkMode((prev) => !prev);
-    // Optionally: trigger theme change in your app here
+  const changeTheme = () => {
+    if (theme === 'bg-white') {
+      setTheme('bg-black');
+      setIsDarkMode(true);
+    } else {
+      setTheme('bg-white');
+      setIsDarkMode(false);
+    }
   };
 
   // Close dropdown when clicking outside
@@ -49,23 +55,22 @@ const Topbar = () => {
 
   return (
     <div className="sticky top-0 z-50 bg-white border-b border-gray-200 shadow-sm">
-      <div className="flex justify-between items-center h-16 md:h-20 px-4 lg:px-6">
+      <div className={`flex justify-between ${theme} items-center h-16 md:h-20 px-4 lg:px-6`}>
         <WebSiteLogo />
 
         <div className="hidden md:block flex-grow mx-4">
           <SearchBar />
         </div>
 
-        <div className="items-center bg-white">
+        <div className={`items-center ${theme}`}>
           <button
-            onClick={handleToggleTheme}
+            onClick={changeTheme}
             className="relative w-15 h-15   "
-            aria-label="Toggle dark/light mode"
           >
             {isDarkMode ? (
-              <MdOutlineDarkMode/>
+              <MdOutlineDarkMode className="text-2xl text-white " />
             ) : (
-              <IoSunnySharp/>
+              <IoSunnySharp className="text-2xl text-yellow-400 " />
             )}
           </button>
         </div>

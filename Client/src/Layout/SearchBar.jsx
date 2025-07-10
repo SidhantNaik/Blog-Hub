@@ -27,7 +27,7 @@ export default function SearchBar() {
           value={query}
           type="text"
           placeholder="Search here . . . ."
-          className="w-full border-2 border-purple-300 rounded-2xl py-2 px-4 focus:outline-none focus:border-purple-400 focus:shadow-md"
+          className="w-full border-2 border-purple-300 text-purple-700 rounded-2xl py-2 px-4 focus:outline-none focus:border-purple-400 focus:shadow-md"
         />
         <button type="submit" className="absolute right-3 top-1/2 transform -translate-y-1/2 text-purple-700">
           <FaSearch />
