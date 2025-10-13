@@ -8,17 +8,13 @@ import Button from "../../Components/Button";
 import slugify from "slugify";
 import { getEnv } from "../../Helpers/getEnv";
 import { showToast } from "../../Helpers/showToast";
-import { useFetch } from '../../hooks/useFetch'
+import { useFetch } from '../../Hooks/useFetch'
 import { useNavigate } from "react-router-dom";
 import Dropzone from "react-dropzone";
 import { useState } from "react";
 import Editor from "../../Components/Editor";
 import { useSelector } from "react-redux";
-import {
-  Select,
-  SelectOption,
-  SelectLabel,
-} from "../../Components/SelectComponents";
+import {Select,SelectOption,SelectLabel,} from "../../Components/SelectComponents";
 import { RouteUserBlog } from "../../Helpers/RouteNames";
 
 function AddBlog() {

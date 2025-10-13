@@ -1,5 +1,5 @@
 import { Table, TableRow, TableCell, ColumnHeading } from '../Components/TableComponent';
-import { useFetch } from '../hooks/useFetch'
+import { useFetch } from '../Hooks/useFetch'
 import { getEnv } from '../Helpers/getEnv'
 import Loading from '../Components/Loading'
 import { showToast } from '../Helpers/showToast'

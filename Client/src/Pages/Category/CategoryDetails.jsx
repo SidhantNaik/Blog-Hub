@@ -2,7 +2,7 @@ import Button from '../../Components/Button'
 import { Link } from 'react-router-dom'
 import { RouteAddCategory, RouteEditCategory } from '../../Helpers/RouteNames'
 import { Table, TableRow, TableCell, ColumnHeading } from '../../Components/TableComponent';
-import { useFetch } from '../../hooks/useFetch'
+import { useFetch } from '../../Hooks/useFetch.js'
 import { getEnv } from '../../Helpers/getEnv'
 import { FaEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";

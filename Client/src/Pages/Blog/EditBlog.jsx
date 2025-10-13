@@ -8,7 +8,7 @@ import Button from "../../Components/Button";
 import slugify from "slugify";
 import { getEnv } from "../../Helpers/getEnv";
 import { showToast } from "../../Helpers/showToast";
-import { useFetch } from '../../hooks/useFetch'
+import { useFetch } from '../../Hooks/useFetch'
 import { useNavigate, useParams } from "react-router-dom";
 import Dropzone from "react-dropzone";
 import Loading from '../../Components/Loading'

@@ -3,7 +3,7 @@ import { Table, TableRow, TableCell, ColumnHeading } from '../Components/TableCo
 import { deleteData } from '../Helpers/handleDelete';
 import { showToast } from '../Helpers/showToast';
 import Loading from '../Components/Loading';
-import { useFetch } from '../hooks/useFetch';
+import { useFetch } from '../Hooks/useFetch';
 import { getEnv } from '../Helpers/getEnv';
 import { MdDelete } from "react-icons/md";
 import { useParams } from "react-router-dom";

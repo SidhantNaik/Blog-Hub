@@ -6,7 +6,7 @@ import Button from "../Components/Button";
 import { deleteData } from '../Helpers/handleDelete'
 import { showToast } from '../Helpers/showToast'
 import Loading from '../Components/Loading'
-import { useFetch } from '../hooks/useFetch'
+import { useFetch } from '../Hooks/useFetch'
 import { getEnv } from '../Helpers/getEnv'
 import { MdDelete } from "react-icons/md";
 import { FaEdit } from "react-icons/fa";

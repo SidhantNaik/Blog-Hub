@@ -1,5 +1,5 @@
 import Categories from './Categories'
-import { useFetch } from '../hooks/useFetch'
+import { useFetch } from '../Hooks/useFetch'
 import { getEnv } from '../Helpers/getEnv'
 import { Link } from 'react-router-dom';
 import { RouteBlogByCategory } from '../Helpers/RouteNames';
