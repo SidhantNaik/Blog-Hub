@@ -18,8 +18,10 @@ app.use(cookieParser())
 app.use(express.json())
 app.use(cors(
     {
-        origin: process.env.FRONTEND_URL,
-        credentials: true
+        origin: [process.env.FRONTEND_URL, 'https://blog-hub-rosy.vercel.app'],
+        credentials: true,
+        methods: ['GET', 'POST', 'PUT', 'DELETE'],
+        allowedHeaders: ['Content-Type', 'Authorization']
     }
 ))
 
@@ -33,7 +35,14 @@ app.use('/Api/comment',CommentRoute)
 
 
 
-mongoose.connect(process.env.MONGODB_CONN, { dbName: 'Blog-Hub-DB' })
+mongoose.connect(process.env.MONGODB_CONN, { 
+    dbName: 'Blog-Hub-DB',
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    serverSelectionTimeoutMS: 30000, // Increase timeout to 30 seconds
+    socketTimeoutMS: 45000, // Increase socket timeout to 45 seconds
+    heartbeatFrequencyMS: 2000 // Increase heartbeat frequency
+})
     .then(() => console.log("Database connected"))
     .catch((err) => console.log("Database not connected", err))
 
