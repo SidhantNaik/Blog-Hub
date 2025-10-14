@@ -15,11 +15,8 @@ export const deleteData = async (endpoint) => {
             }
 
             const data = await response.json();
-            console.error("Server response:", data);
             throw new Error(data.message || "Failed to delete");
-
         } catch (error) {
-            console.error("Error deleting:", error);
             return false;
         }
     }

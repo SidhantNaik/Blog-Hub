@@ -9,11 +9,10 @@ BlogRoute.get('/edit/:blogid',editBlog)
 BlogRoute.put('/update/:blogid',upload.single('file'),updateBlog)
 BlogRoute.delete('/delete/:blogid', deleteBlog);
 BlogRoute.get('/get-all', showAllBlog)
-BlogRoute.get('/get-user-blog/:userid', showUsersBlog); // Ensure this matches the frontend
+BlogRoute.get('/get-user-blog/:userid', showUsersBlog)
 BlogRoute.get('/get-blog/:slug',getBlog)
 BlogRoute.get('/get-related-blog/:category',getRelatedBlog)
 BlogRoute.get('/get-blog-by-category/:category',getBlogByCategory)
-BlogRoute.get('/search',search) 
-
+BlogRoute.get('/search',search)
 
 export default BlogRoute

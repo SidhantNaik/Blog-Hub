@@ -8,14 +8,12 @@ const rootReducer = combineReducers({
   user: userReducer
 })
 
-
 const persistConfig = {
   key: 'root',
   storage: sessionStorage,
 }
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)
-
 
 export const store = configureStore({
   reducer: persistedReducer,

@@ -2,8 +2,8 @@ import { FiArrowLeft } from 'react-icons/fi'
 import LableText from '../Components/LableText'
 import InputText from '../Components/InputText'
 import Button from '../Components/Button'
-import { RouteIndex, RouteSignIn, RouteSignUp } from '../Helpers/RouteNames'
-import { Link, useNavigate } from 'react-router-dom'
+import { RouteIndex } from '../Helpers/RouteNames'
+import { useNavigate } from 'react-router-dom'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
@@ -12,10 +12,12 @@ import { showToast } from '../Helpers/showToast'
 import GoogleLogin from '../Components/GoogleLogin'
 import { useDispatch } from 'react-redux'
 import { setUser } from '../redux/user/user.slice'
+import { Link } from 'react-router-dom'
+import { RouteSignUp } from '../Helpers/RouteNames'
 
 const SignIn = () => {
 
-  const dispath = useDispatch()
+  const dispatch = useDispatch()
   const navigate = useNavigate()
 
   const formSchema = z.object({
@@ -49,7 +51,7 @@ const SignIn = () => {
         return showToast('error', data.message)
       }
 
-      dispath(setUser({ ...data.user, isLoggedIn: true }))  // Add isLoggedIn flag
+      dispatch(setUser({ ...data.user, isLoggedIn: true }))
       navigate(RouteIndex)
       showToast('success', data.message)
 

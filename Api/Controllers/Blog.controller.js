@@ -1,8 +1,6 @@
-import { handleError } from "../Helpers/handleError.js";
 import Blog from "../Models/blog.model.js";
 import cloudinary from "cloudinary";
 import { encode } from 'entities';
-import Category from '../Models/category.model.js'
 
 export const addBlog = async (req, res, next) => {
   try {
@@ -18,12 +16,18 @@ export const addBlog = async (req, res, next) => {
         );
 
       if (!uploadResult) {
-        return next(handleError(500, "Failed to upload image"));
+        return res.status(500).json({
+          status: "error",
+          message: "Failed to upload image"
+        });
       }
 
       featureImage = uploadResult.secure_url;
     } else {
-      return next(handleError(400, "Feature image is required"));
+      return res.status(400).json({
+        status: "error",
+        message: "Feature image is required"
+      });
     }
 
     const blog = new Blog({

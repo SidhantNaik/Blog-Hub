@@ -8,8 +8,7 @@ export const useFetch = (url, options = {}) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        console.log('Fetching URL:', url);
-        console.log('Fetch options:', options);
+        
         
         const response = await fetch(url, {
           ...options,
@@ -18,8 +17,6 @@ export const useFetch = (url, options = {}) => {
             ...options.headers,
           },
         });
-
-        console.log('Response status:', response.status);
         
         if (!response.ok) {
           // Get error details from response
@@ -29,7 +26,6 @@ export const useFetch = (url, options = {}) => {
         }
 
         const result = await response.json();
-        console.log('Fetch result:', result);
         setData(result);
         setError(null);
       } catch (err) {

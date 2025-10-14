@@ -14,24 +14,14 @@ const User = () => {
         credentials: 'include',
     });
 
-    const handleDelete = (id) => {
-        const response = deleteData(`${getEnv('VITE_API_BASE_URL')}/user/delete/${id}`)
-
-        if (response) {
+    const handleDelete = async (id) => {
+        const success = await deleteData(`${getEnv('VITE_API_BASE_URL')}/user/delete/${id}`)
+        if (success) {
             window.location.reload();
-            showToast('success', 'User deleted successfully')
-        } else {
-            showToast('error', 'Failed to delete user')
         }
     }
 
-    if (error) {
-        console.error('Error fetching User:', error);
-    }
-
-    if (loading)
-        return <Loading />
-
+    if (loading) return <Loading />
 
     return (
         <div>
@@ -39,8 +29,6 @@ const User = () => {
                 <div className="mb-6 flex justify-between items-center">
                     <h1 className="text-3xl font-semibold text-gray-800">User Details</h1>
                 </div>
-
-
                 <div className="bg-white rounded-lg shadow-md overflow-hidden">
                     <Table className="min-w-full divide-y divide-gray-200">
                         <thead className="bg-gray-50">
